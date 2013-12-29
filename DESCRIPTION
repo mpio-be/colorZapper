@@ -1,0 +1,10 @@
+Package: colorZapper
+Type: Package
+Title: User friendly color extraction utilities
+Version: 1.0
+Date: 2006-08-28
+Depends: R (>= 3.0.0), RSQLite, sp, raster
+Author: Mihai Valcu, James Dale
+Maintainer: Mihai Valcu <valcu@orn.mpg.de>
+Description: Functions to extract RGB & HSV color patches
+License: GPL (version 2 or later)

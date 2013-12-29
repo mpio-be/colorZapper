@@ -1,0 +1,4 @@
+colorZapper
+===========
+
+Color extraction utilities

@@ -16,7 +16,8 @@
 .onLoad <- function(libname, pkgname) {
 	
 	wd = getwd()
-	czproj = czExists(wd)
+	# czproj = czExists(wd)
+  czproj = wd
 	
 	options(cz.project = czproj)
 

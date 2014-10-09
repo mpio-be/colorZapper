@@ -1,7 +1,7 @@
 
 #' Define regions of interest.
 #' Interactively define points or polygons using mouse clicks.
-
+#' @examples
 #' \dontrun{
 #' require(colorZapper)
 #' dir = system.file(package = "colorZapper", "sample")

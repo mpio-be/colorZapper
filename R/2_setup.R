@@ -4,15 +4,18 @@
 #' @param dir directory containing images
 #' @return TRUE
 #'
-#' @Notes duplicated files are dropped silently
+#' @note duplicated files are dropped silently
+
 #' @examples
-#' \dontrun{
+#'\dontrun{
 #' require(colorZapper)
 #' dir = system.file(package = "colorZapper", "sample")
 #' CZOpen(path = tempfile() )
 #' CZAddFiles(dir)
 #' 
 #' }
+#' 
+#' 
 CZAddFiles <- function(dir)	{
 	stopifnot( colorZapper_file_active())
 	

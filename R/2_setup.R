@@ -7,6 +7,7 @@
 #' @Notes duplicated files are dropped silently
 #' @examples
 #' \dontrun{
+#' require(colorZapper)
 #' dir = system.file(package = "colorZapper", "sample")
 #' CZOpen(path = tempfile() )
 #' CZAddFiles(dir)

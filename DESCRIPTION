@@ -3,8 +3,9 @@ Type: Package
 Title: Color extraction utilities
 Version: 1.0
 Date: 2006-08-28
-Depends: R (>= 3.0.0), RSQLite, sp, raster
+Depends: R (>= 3.0.0), RSQLite, sp, raster, rgeos
+Suggests: dplyr, ggplot2
 Author: Mihai Valcu, James Dale
 Maintainer: Mihai Valcu <valcu@orn.mpg.de>
-Description: Functions to extract RGB & HSV color patches
+Description: Functions to extract RGB values from user-defined regions
 License: GPL (version 2 or later)

@@ -1,36 +1,95 @@
 
-#' Interactively define points or polygons using locator aka \code{\link{click}}.
+#' Define regions of interest.
+#' Interactively define points or polygons using mouse clicks.
 
-#' @examples
 #' \dontrun{
-#' 
-#' 
+#' require(colorZapper)
+#' dir = system.file(package = "colorZapper", "sample")
+#' CZOpen(path = tempfile() )
+#' CZAddFiles(dir)
+#' CZDefine(points = 1)
 #' 
 #' }
 
+setGeneric("CZDefine", function(points, polygons, ...) standardGeneric("CZDefine") )
 
-CZDefine <- function(n = 2) {
-  	stopifnot( colorZapper_file_active())
-	
+# points & no marks
+setMethod("CZDefine",
+signature = c(points = "numeric", polygons = "missing"),
+	definition = function(points, ...) {
+		stopifnot( colorZapper_file_active())
+		
 	f =  dbGetQuery(options()$cz.con, "select * from files")
-	
-  O = list()
-  
-  for(i in 1:nrow(f) ) {
-    fi = brick(f[i, 1])    
-    plotRGB (fi)
-    v = data.frame(locator(fi, type = "p", pch = "+", cex = 2, n = n))
-	v
-	
-    names(v) = c("R", "G", "B")
-	
-	
-    v$f = f[i]
-    O[[i]] = v
-    print(i)
-    }
-  
-  do.call(rbind, O)
-  
-  
-}
+
+	  
+	  for(i in 1:nrow(f) ) {
+		fi = brick (f[i, 'path'], crs = NA, nl = 3)    
+		plotRGB (fi, maxpixels = Inf)
+		v = locator(fi, type = "p", n = points) # ...
+
+		d = data.frame( 
+			id = f[i, 'id'],
+			wkt = paste("MULTIPOINT(", paste("(", v$x, v$y, ")", collapse = ","), ")"),
+			mark = NA, 
+			pk = NA)
+		
+		 dbWriteTable(options()$cz.con, "ROI", d, row.names = FALSE, append = TRUE)	
+			
+		flush.console() 
+		cat(i, "of", nrow(f), "\n" )
+		
+		# write to db
+		
+		
+		
+		flush.console() 
+		
+		
+		
+		}
+	  
+
+
+	}
+)
+
+
+
+
+
+
+
+
+if(FALSE) {
+	dir = system.file(package = "colorZapper", "sample")
+	CZOpen(path = tempfile() )
+	CZAddFiles(dir)
+	CZDefine(points = 1)
+
+	dbGetQuery(options()$cz.con, "select * from ROI")
+
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

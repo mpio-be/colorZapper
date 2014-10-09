@@ -6,7 +6,7 @@ czIsValid <- function(con) {
   true_format = list(
     nfo = c("user", "create", "version"), 
     files = c("path", "id"), 
-	ROI = c("id", "wkt", "mark", "dt","pk"),
+	ROI = c("id", "wkt", "mark", "pk"),
 	RGB = c("R", "G", "B", "pk")
 	
 	)
@@ -27,13 +27,13 @@ czOpen <- function(path) {
   # nfo
   nfo = data.frame(
   	user = as.character(Sys.info()[["user"]]) ,
-  	create = NA,
+  	create = as.character(Sys.time()),
   	version = as.character(packageVersion("colorZapper")) )
   
   dbSendQuery(con, 
   'CREATE TABLE "nfo" (
   	"user" VARCHAR, 
-  	"create" DATETIME DEFAULT CURRENT_TIMESTAMP, 
+  	"create" DATETIME, 
   	"version" CHAR)')	
   
   dbWriteTable(con, "nfo", nfo, row.names = FALSE, append = TRUE)
@@ -50,8 +50,7 @@ czOpen <- function(path) {
 	"id" INTEGER NOT NULL , 
 	"wkt" TEXT NOT NULL , 
 	"mark" VARCHAR, 
-	"dt" DATETIME NOT NULL  DEFAULT CURRENT_TIMESTAMP, 
-	"pk" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL )
+	"pk" INTEGER PRIMARY KEY  AUTOINCREMENT)
   ')
   
   # RGB

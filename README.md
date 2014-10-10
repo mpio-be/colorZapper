@@ -1,5 +1,5 @@
 
-[![Build Status](https://travis-ci.org/valcu/colorZapper.svg?branch=master)]
+[![Build Status][(https://travis-ci.org/valcu/colorZapper.svg?branch=master)]
 
 
 

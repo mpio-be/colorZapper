@@ -48,31 +48,30 @@ CZShowStatus <- function() {
 #' 
 #' }
 
-setGeneric("CZdefine", function(points, polygons, ...) standardGeneric("CZdefine") )
+setGeneric("CZdefine", function(points, polygons, what, ...) standardGeneric("CZdefine") )
 
 
 # points & no marks
 setMethod("CZdefine",
-signature = c(points = "numeric", polygons = "missing"),
+signature = c(points = "numeric", polygons = "missing", what = "missing"),
 	definition = function(points, ...) {
 		stopifnot( colorZapper_file_active())
 		
-	f =  dbGetQuery(options()$cz.con, "select * from files")
+	f =  dbGetQuery(options()$cz.con, "select * from files f where f.id not in (select distinct id from ROI where instr(wkt, 'MULTIPOINT') = 1 )")
 
+	if(nrow(f) == 0) stop("You pushed points on all images here.")
+	
 	  
 	  for(i in 1:nrow(f) ) {
 		bi = brick (f[i, 'path'], crs = NA, nl = 3)    
 		czplot(bi)
 		v = czlocator(n = points, type = 'p')		# ...
-
 		d = data.frame( id = f[i, 'id'], wkt = v, mark = NA, pk = NA)
-		
 		dbWriteTable(options()$cz.con, "ROI", d, row.names = FALSE, append = TRUE)	
-			
 		flush.console() 
 		cat(i, "of", nrow(f), "\n" )
-		
 		}
+	
 	}
 )
 

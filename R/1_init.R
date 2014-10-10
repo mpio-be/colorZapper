@@ -17,7 +17,7 @@ czIsValid <- function(con) {
   
 	}
 	
-czOpen <- function(path) {
+czopen <- function(path) {
   con = dbConnect(dbDriver("SQLite"), path)
 
   freshDB = length(dbListTables(con)) == 0
@@ -78,15 +78,15 @@ colorZapper_file_active <- function() {
 	
 # user level
 
-CZOpen <- function(path) {
+CZopen <- function(path) {
 		
 		invisible(suppressWarnings(try(dbDisconnect(options()$cz.con), silent = TRUE)))
-		options( cz.con = czOpen(path = path) )
+		options( cz.con = czopen(path = path) )
 		return(colorZapper_file_active()	)
 
 	}
 	
-CZClose <- function() {
+CZclose <- function() {
 	dbDisconnect(options()$cz.con)
 	}
 		

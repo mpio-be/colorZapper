@@ -10,13 +10,13 @@
 #'\dontrun{
 #' require(colorZapper)
 #' dir = system.file(package = "colorZapper", "sample")
-#' CZOpen(path = tempfile() )
-#' CZAddFiles(dir)
+#' CZopen(path = tempfile() )
+#' CZaddFiles(dir)
 #' 
 #' }
 #' 
 #' 
-CZAddFiles <- function(dir)	{
+CZaddFiles <- function(dir)	{
 	stopifnot( colorZapper_file_active())
 	
 	f = data.frame(path = 

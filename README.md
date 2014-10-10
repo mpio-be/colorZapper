@@ -1,5 +1,4 @@
-
-[![Build Status](https://travis-ci.org/valcu/colorZapper.png?branch=master)](https://travis-ci.org/valcu/colorZapper)
+[![Build Status](https://travis-ci.org/valcu/colorZapper.svg?branch=master)](https://travis-ci.org/valcu/colorZapper)
 
 colorZapper
 ===========

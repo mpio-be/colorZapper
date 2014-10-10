@@ -7,7 +7,7 @@ czIsValid <- function(con) {
     nfo = c("user", "create", "version"), 
     files = c("path", "id"), 
 	ROI = c("id", "wkt", "mark", "pk"),
-	RGB = c("R", "G", "B", "pk")
+	RGB = c("R", "G", "B", "roi_pk")
 	
 	)
   
@@ -59,7 +59,7 @@ czopen <- function(path) {
 	"R" float, 
 	"G" float, 
 	"B" float, 
-	"pk" INTEGER PRIMARY KEY NOT NULL   )
+	"roi_pk" INTEGER NOT NULL   )
   ')
   
    dbClearResult(con)

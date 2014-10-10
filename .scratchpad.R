@@ -27,4 +27,71 @@
 	CZdefine(polygons = 2, marks = c("wing", "tail"), what = 4)
 
 
-	CZShowStatus()
+	CZshowStatus()
+
+	
+	###
+	require(colorZapper)
+	dir = system.file(package = "colorZapper", "sample")
+	CZopen(path = tempfile() )
+	CZaddFiles(dir)
+	CZdefine(points = 2, what = c(1,3) )
+	CZdefine(points = 3, what = c(1,5) )
+	CZshowStatus()
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

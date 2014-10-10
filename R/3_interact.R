@@ -8,7 +8,7 @@
 #'  }
 #'  
 
-CZShowStatus <- function() {
+CZshowStatus <- function() {
 	stopifnot( colorZapper_file_active())
 	d = dbGetQuery(options()$cz.con, "
 	SELECT count(id) replicates, id, mark, fileName FROM 
@@ -59,12 +59,19 @@ signature = c(points = "numeric", polygons = "missing"),
 		
 		plotRGB (bi, maxpixels = Inf)
 		
-		v = locator(type = "p", n = points * length(marks), ...) 
-			if(Sys.getenv("RSTUDIO") == "1") dev.off()
-		v = paste("MULTIPOINT(", paste("(", v$x, v$y, ")", collapse = ","), ")")
+		for(j in 1:length(marks) ) {
+			v = locator(type = "p", n = points, ...) 
+			v = paste("MULTIPOINT(", paste("(", v$x, v$y, ")", collapse = ","), ")")
+			
+			points(readWKT(v), cex = 2)
+			
+			d = data.frame( id = f[i, 'id'], wkt = v, mark = marks[j]  , pk = NA)
+			dbWriteTable(options()$cz.con, "ROI", d, row.names = FALSE, append = TRUE)	
+			}
 		
-		d = data.frame( id = f[i, 'id'], wkt = v, mark = rep(marks, each = points), pk = NA)
-		dbWriteTable(options()$cz.con, "ROI", d, row.names = FALSE, append = TRUE)	
+		if(Sys.getenv("RSTUDIO") == "1") dev.off()
+		
+		
 		flush.console() 
 		cat(i, "of", nrow(f), "\n" )
 	

@@ -26,9 +26,15 @@ czlocator <-function(type, ... ) {
 
 CZShowStatus <- function() {
 	stopifnot( colorZapper_file_active())
-	dbGetQuery(options()$cz.con, "select * from files f left join ROI r on f.id = r.id")
-	
-	} 
+	d = dbGetQuery(options()$cz.con, "
+	select distinct f.id, 
+		CASE WHEN instr(wkt, 'MULTIPOINT')	THEN 'points' 
+			WHEN instr(wkt, 'MULTIPOLYGON')	THEN  'polygons' ELSE 'image' END as selected,
+			path fileName
+				from files f left join ROI r on f.id = r.id")
+	d$fileName = gsub("((\\.(?i)(jpg|jpeg|png|gif|bmp|tif|tiff))$)", "", basename(d$fileName) )
+	d
+} 
 	
 #' Define regions of interest.
 #' Interactively define points or polygons using mouse clicks.
@@ -84,8 +90,12 @@ if(FALSE) {
 	CZaddFiles(dir)
 	CZdefine(points = 2)
 
-	dbGetQuery(options()$cz.con, "select * from ROI")
+	CZShowStatus()
 
+
+
+	
+	
  }
 
 

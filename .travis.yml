@@ -6,13 +6,14 @@ before_install:
 - ./travis-tool.sh bootstrap
 
 env:
-global:
-- R_BUILD_ARGS="--no-build-vignettes --no-manual"
-- R_CHECK_ARGS="--no-build-vignettes --no-manual --as-cran"
+- global:
+- WARNINGS_ARE_ERRORS=0
+
 
 install:
 - ./travis-tool.sh install_github rstats-db/RSQLite
 - ./travis-tool.sh install_deps
+
 script: ./travis-tool.sh run_tests
 
 notifications:

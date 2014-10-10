@@ -8,4 +8,4 @@ Suggests: dplyr, ggplot2
 Author: Mihai Valcu, James Dale
 Maintainer: Mihai Valcu <valcu@orn.mpg.de>
 Description: Functions to extract RGB values from user-defined regions
-License: GPL (version 2 or later)
+License:  GPL (>= 2)

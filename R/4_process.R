@@ -10,8 +10,6 @@
 #'  }
 #'  
 
-# TODO fix for polygons
-
 CZextractRGB <- function() {
 	stopifnot( colorZapper_file_active())
 	
@@ -29,7 +27,13 @@ CZextractRGB <- function() {
 		
 		wi = lapply(dl[[i]]$wkt,  readWKT)
 		
-		res = mapply( FUN = function(x, id) cbind( extract(ri, x, method='bilinear'), id), x =  wi, id = dl[[i]]$pk, SIMPLIFY = FALSE)
+		res = mapply( FUN = 
+              function(x, id) { 
+                res = extract(ri, x, method='bilinear')
+                if( inherits(res, "list") ) res = res[[1]]
+                cbind(res , id)
+              
+                    }, x =  wi, id = dl[[i]]$pk, SIMPLIFY = FALSE)
 		
 		O[[i]] = do.call(rbind, res)
 		}	

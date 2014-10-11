@@ -65,7 +65,7 @@ czopen <- function(path) {
    dbClearResult(con)
   
   }	
-
+  initExtension(con)
   return(con)
 	
 	}

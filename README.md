@@ -7,7 +7,7 @@ Color extraction utilities
 
 `devtools::install_github("valcu/colorZapper")`
 
-`
+```
 require(colorZapper)
 dir = system.file(package = "colorZapper", "sample")
 CZopen(path = tempfile() )
@@ -20,4 +20,4 @@ CZdefine(polygons = 1, marks = c("wing", "tail"), what = 2 )
 CZshowStatus()
 CZextractRGB()
 d = CZdata()
-`
+```

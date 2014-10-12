@@ -26,3 +26,5 @@ CZshowStatus()
 CZextractRGB()
 d = CZdata()
 ```
+
+

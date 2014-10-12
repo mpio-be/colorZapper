@@ -5,14 +5,14 @@ colorZapper
 Color extraction utilities
 
 
-```Shen
+```Schene
 require(devtools)
 install_github("rstats-db/RSQLite")
 install_github("valcu/colorZapper")
 ```
 
 
-```Shen
+```Schene
 require(colorZapper)
 dir = system.file(package = "colorZapper", "sample")
 CZopen(path = tempfile() )

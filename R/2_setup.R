@@ -4,7 +4,7 @@
 #' @param dir directory containing images
 #' @return TRUE
 #'
-#' @note duplicated files are dropped silently
+#' @note Duplicated files are dropped silently.
 
 #' @examples
 #'\dontrun{

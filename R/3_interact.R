@@ -1,31 +1,5 @@
-
-#' photo ID-s
-#' Show processed files
-#' examples
-#' \donotrun{
-#'  
-#'  
-#'  }
-#'  
-
-CZshowStatus <- function() {
-	stopifnot( colorZapper_file_active())
-	d = dbGetQuery(options()$cz.con, "
-	SELECT count(id) replicates, id, mark, fileName FROM 
-		(select f.id, mark, 
-			CASE WHEN instr(wkt, 'MULTIPOINT')	THEN 'points' 
-				WHEN instr(wkt, 'MULTIPOLYGON')	THEN  'polygons'  END as selected,
-				path fileName
-					from files f left join ROI r on f.id = r.id )
-	GROUP BY id, mark, fileName  	
-	")
-				
-				
-	d$fileName = gsub("((\\.(?i)(jpg|jpeg|png|gif|bmp|tif|tiff))$)", "", basename(d$fileName) )
-	d
-} 
-	
 #' Define regions of interest.
+#'
 #' Interactively define points or polygons using mouse clicks.
 #' @examples
 #' \dontrun{
@@ -36,6 +10,14 @@ CZshowStatus <- function() {
 #' CZdefine(points = 1)
 #' 
 #' }
+
+
+
+
+
+
+
+
 
 setGeneric("CZdefine", function(points, polygons,  ...) standardGeneric("CZdefine") )
 

@@ -15,7 +15,7 @@ TRUE
 Associate images to a colorZapper file.
 }
 \note{
-duplicated files are dropped silently
+Duplicated files are dropped silently.
 }
 \examples{
 \dontrun{

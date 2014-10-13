@@ -1,15 +1,10 @@
-
-
-
-#' extract RGB
-#' extract RGB
-#' examples
-#' \donotrun{
-#'  
-#'  
+#' Extract data
+#' Extract data
+#'
+#' @examples
+#' \dontrun{
+#'  CZextractRGB()
 #'  }
-#'  
-
 CZextractRGB <- function() {
 	stopifnot( colorZapper_file_active())
 	

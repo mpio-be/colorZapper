@@ -76,7 +76,21 @@ colorZapper_file_active <- function() {
 	czIsValid(options()$cz.con) ) TRUE else FALSE
 	}
 	
-# user level
+
+#' Open a colorZapper file.
+#'
+#' Open a colorZapper file.
+#'
+#' @examples
+#'\dontrun{
+#' require(colorZapper)
+#' dir = system.file(package = "colorZapper", "sample")
+#' CZopen(path = tempfile() )
+#' 
+#' }
+#' 
+#' 
+
 
 CZopen <- function(path) {
 		
@@ -86,11 +100,7 @@ CZopen <- function(path) {
 
 	}
 	
-CZclose <- function() {
-	dbDisconnect(options()$cz.con)
-	}
-		
-		
+	
 		
 		
 		

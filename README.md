@@ -2,7 +2,13 @@
 
 colorZapper
 ===========
-Color extraction utilities
+Extract colour from photos interactively
+
+```R
+require(devtools)
+install_github("rstats-db/RSQLite")
+install_github("valcu/colorZapper")
+```
 
 ```R
 require(colorZapper)

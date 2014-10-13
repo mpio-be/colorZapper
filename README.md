@@ -14,10 +14,13 @@ install_github("valcu/colorZapper")
 require(colorZapper)
 # path to image directory
 dir = system.file(package = "colorZapper", "sample")
-# opens/create a colotZapper file
+# open/create a colorZapper file
 CZopen(path = tempfile() )
 # associate files with the opened file
 CZaddFiles(dir)
+```
+
+```R
 #interactively define points or polygons
 
 # define 1 point per image
@@ -38,6 +41,9 @@ CZshowStatus()
 #define polygons: 1 polygon per mark
 # once a polygon is drew press ESC 
 CZdefine(polygons = 1, marks = c("wing", "tail"), what = 3 )
+```
+
+```R
 
 # extract RGB values
 CZextractRGB()
@@ -47,3 +53,15 @@ d = CZdataFrame()
 head(d)
 barplot(rep(1, nrow(d)), col = d$hexCol)
 ```
+
+
+
+
+
+
+
+
+
+
+
+

@@ -52,6 +52,12 @@ CZextractRGB()
 d = CZdataFrame()
 head(d)
 barplot(rep(1, nrow(d)), col = d$hexCol)
+
+#check defined regions
+ CZcheck()
+
+ 
+
 ```
 
 

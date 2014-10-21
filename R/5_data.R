@@ -1,3 +1,21 @@
+#' db as a list of data.frame-s
+#'
+#' db as a list of data.frame-s
+#'
+#' @examples
+#' \dontrun{
+#'  db2list(con)
+#'  }
+
+db2list <- function(con) {
+	tnams = dbGetQuery(con, "SELECT name FROM sqlite_master WHERE type='table'")
+	sapply(tnams$name, function(x)  dbGetQuery(con, paste("SELECT * FROM", x) ) )
+
+}
+
+
+
+
 #' Show db status
 #' Show db status
 #'
@@ -32,7 +50,7 @@ CZshowStatus <- function() {
 #'  }
 
 CZdataFrame <- function(fun = median) {
-  
+  	stopifnot( colorZapper_file_active())
 	f = as.character(substitute(fun))
 	d = dbGetQuery(options()$cz.con, paste(
 	  '
@@ -57,6 +75,8 @@ CZdataFrame <- function(fun = median) {
 	d
 
 }
+
+
 
 
 

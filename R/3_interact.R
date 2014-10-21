@@ -11,16 +11,7 @@
 #' 
 #' }
 
-
-
-
-
-
-
-
-
 setGeneric("CZdefine", function(points, polygons,  ...) standardGeneric("CZdefine") )
-
 
 # points
 setMethod("CZdefine",
@@ -114,13 +105,51 @@ signature = c(points = "missing", polygons = "numeric"),
 	}
 )
 
+ #' Check out defined ROI-s
+#'
+#' Check out defined ROI-s
+#' @examples
+#' \dontrun{
+#' require(colorZapper)
+#' dir = system.file(package = "colorZapper", "sample")
+#' CZopen(path = tempfile() )
+#' CZaddFiles(dir)
+#' CZdefine(points = 1)
+#' CZdefine(polygons = 1, what = 1)
+#' CZcheck()
+#' }
+ 
+CZcheck <-function(file = tempfile(fileext = ".pdf") ) {
+	stopifnot( colorZapper_file_active())
+
+	d = db2list(options()$cz.con)
+
+	pdf(file)
+
+	for(i in d$files$id ) {
+		fi = d$files[d$files$id == i, 'path'] 
+		ri = brick ( fi , crs = NA, nl = 3) 
+		roii = lapply(d$ROI[d$ROI$id == i, 'wkt'], readWKT)
+		
+		plotRGB(ri)
+		for(j in roii) {
+			if( inherits(j, "SpatialPoints") ) 
+				points(j, col = "red", cex = 2) else
+				plot(j, border = "red", lwd = 2, col = adjustcolor("red", 0.4) , add = TRUE)
+		}
+
+		mtext(basename(fi), 2, line = -2, col = adjustcolor(1, .5))
 
 
+	}
+
+	dev.off()
+	message("Trying to open", file)
+	system(file)
+
+	}
  
- 
- 
- 
- 
+
  
  
  

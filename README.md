@@ -49,14 +49,12 @@ CZdefine(polygons = 1, marks = c("wing", "tail"), what = 3 )
 CZextractRGB()
 
 # fetch data
-d = CZdataFrame()
+d = CZdataFrame(fun = median)
 head(d)
 barplot(rep(1, nrow(d)), col = d$hexCol)
 
 #check defined regions
  CZcheck()
-
- 
 
 ```
 

@@ -1,5 +1,4 @@
 #'  Color zapper.
-#'
 #' Color zapper.
 #'
 #' @author

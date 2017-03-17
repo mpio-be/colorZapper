@@ -6,7 +6,6 @@ Extract colour from photos interactively
 
 ```R
 require(devtools)
-install_github("rstats-db/RSQLite")
 install_github("valcu/colorZapper")
 ```
 
@@ -35,7 +34,7 @@ CZshowStatus()
 # define points using marks
 # 2 points per mark = 4 points per image
 # 'what' is set so only particular images are going to be loaded
-CZdefine(points = 1, marks = c("wing", "tail"), what = 4 )
+CZdefine(points = 1, marks = c("wing", "tail") , what = 4)
 CZshowStatus()
 
 #define polygons: 1 polygon per mark
@@ -44,19 +43,26 @@ CZdefine(polygons = 1, marks = c("wing", "tail"), what = 3 )
 ```
 
 ```R
-
-# extract RGB values
-CZextractRGB()
+# extract RGB values from Regions of Interest
+CZextractROI()
 
 # fetch data
-d = CZdataFrame(fun = median)
+d = CZdata(what = 'ROI')
 head(d)
 barplot(rep(1, nrow(d)), col = d$hexCol)
 
 #check defined regions
  CZcheck()
-
 ```
+
+```R
+# extract RGB values from the entire image
+CZextractALL()
+d = CZdata(what = 'ALL')
+```
+
+
+
 
 
 

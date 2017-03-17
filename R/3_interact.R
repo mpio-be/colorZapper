@@ -1,58 +1,56 @@
 #' Define regions of interest.
-#'
 #' Interactively define points or polygons using mouse clicks.
-#' @examples
-#' \dontrun{
+#' @export
+#' @examples \dontrun{
 #' require(colorZapper)
 #' dir = system.file(package = "colorZapper", "sample")
 #' CZopen(path = tempfile() )
 #' CZaddFiles(dir)
 #' CZdefine(points = 1)
-#' 
 #' }
-
 setGeneric("CZdefine", function(points, polygons,  ...) standardGeneric("CZdefine") )
 
 # points
+#' @export
 setMethod("CZdefine",
 signature = c(points = "numeric", polygons = "missing"),
 	definition = function(points , marks = NA, what, ...) {
 	stopifnot( colorZapper_file_active() )
-	
+
 	qstr = "select * from files f where f.id not in (select distinct id from ROI where instr(wkt, 'MULTIPOINT') = 1 )"
 	if(!missing(what)) 
-	 qstr = paste("select * from files f where f.id in", paste('(', paste(what, collapse = ","), ')') )
-	
-	f =  dbGetQuery(options()$cz.con, qstr)
-	
+	qstr = paste("select * from files f where f.id in", paste('(', paste(what, collapse = ","), ')') )
+
+	f =  dbGetQuery(getOption('cz.con'), qstr)
+
 	if(missing(what) & nrow(f) == 0) stop("You pushed points on all images here.")
-		
+
 	for(i in 1:nrow(f) ) {
-		bi = brick (f[i, 'path'], crs = NA, nl = 3)    
+	bi = brick (f[i, 'path'], crs = NA, nl = 3)    
+
+	plotRGB (bi, maxpixels = Inf)
+
+	for(j in 1:length(marks) ) {
+		v = locator(type = "p", n = points, ...) 
+		v = paste("MULTIPOINT(", paste("(", v$x, v$y, ")", collapse = ","), ")")
 		
-		plotRGB (bi, maxpixels = Inf)
+		points(readWKT(v), cex = 2)
 		
-		for(j in 1:length(marks) ) {
-			v = locator(type = "p", n = points, ...) 
-			v = paste("MULTIPOINT(", paste("(", v$x, v$y, ")", collapse = ","), ")")
-			
-			points(readWKT(v), cex = 2)
-			
-			d = data.frame( id = f[i, 'id'], wkt = v, mark = marks[j]  , pk = NA)
-			dbWriteTable(options()$cz.con, "ROI", d, row.names = FALSE, append = TRUE)	
-			}
-		
-		if(Sys.getenv("RSTUDIO") == "1") dev.off()
-		
-		
-		flush.console() 
-		cat(i, "of", nrow(f), "\n" )
-	
+		d = data.frame( id = f[i, 'id'], wkt = v, mark = marks[j]  , pk = NA)
+		dbWriteTable(getOption('cz.con'), "ROI", d, row.names = FALSE, append = TRUE)	
+		}
+
+	if(Sys.getenv("RSTUDIO") == "1") dev.off()
+
+
+	flush.console() 
+	cat(i, "of", nrow(f), "\n" )
+
 	}
-}
-)
+	})
 
 # polygons
+#' @export
 setMethod("CZdefine",
 signature = c(points = "missing", polygons = "numeric"),
 	definition = function(polygons , marks = NA, what, ...) {
@@ -62,7 +60,7 @@ signature = c(points = "missing", polygons = "numeric"),
 	if(!missing(what)) 
 	 qstr = paste("select * from files f where f.id in", paste('(', paste(what, collapse = ","), ')') )
 	
-	f =  dbGetQuery(options()$cz.con, qstr)
+	f =  dbGetQuery(getOption('cz.con'), qstr)
 	
 	if(missing(what) & nrow(f) == 0) stop("You painted polygons on all images here.")
 	
@@ -90,7 +88,7 @@ signature = c(points = "missing", polygons = "numeric"),
 			plot(readWKT(gp), border = 2, col = adjustcolor(marksCol[j], .2), add = T)
 			
 			d = data.frame( id = f[i, 'id'], wkt = gp, mark = marks[j], pk = NA)
-			dbWriteTable(options()$cz.con, "ROI", d, row.names = FALSE, append = TRUE)	
+			dbWriteTable(getOption('cz.con'), "ROI", d, row.names = FALSE, append = TRUE)	
 			
 			}
 				
@@ -105,9 +103,9 @@ signature = c(points = "missing", polygons = "numeric"),
 	}
 )
 
- #' Check out defined ROI-s
-#'
 #' Check out defined ROI-s
+#' Check out defined ROI-s
+#' @export
 #' @examples
 #' \dontrun{
 #' require(colorZapper)
@@ -118,11 +116,10 @@ signature = c(points = "missing", polygons = "numeric"),
 #' CZdefine(polygons = 1, what = 1)
 #' CZcheck()
 #' }
- 
-CZcheck <-function(file = tempfile(fileext = ".pdf") ) {
+ CZcheck <-function(file = tempfile(fileext = ".pdf") ) {
 	stopifnot( colorZapper_file_active())
 
-	d = db2list(options()$cz.con)
+	d = db2list(getOption('cz.con'))
 
 	pdf(file)
 

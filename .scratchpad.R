@@ -5,11 +5,16 @@
 	# path to image directory
 	dir = system.file(package = "colorZapper", "sample")
 	# opens/create a colotZapper file
-	CZopen(path = tempfile() )
+	path = '~/Desktop/cz.db' 
+	CZopen(path)
 	# associate files with the opened file
 	CZaddFiles(dir)
 	#interactively define points or polygons
-	
+
+	# extract all 
+	CZextractALL()
+	x = CZdata(what = 'ALL')
+
 	# define 1 point per image
 	CZdefine(points = 1)
 	
@@ -30,7 +35,7 @@
 	CZdefine(polygons = 1, marks = c("wing", "tail"), what = 3 )
 	
 	# extract RGB values
-	CZextractRGB()
+	CZextractROI(parralel = FALSE)
 
 	# fetch data
 	d = CZdataFrame()

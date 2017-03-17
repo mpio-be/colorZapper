@@ -1,0 +1,38 @@
+{
+    "folders":[{
+        "name": "colorZapper",
+        "path": ".",
+        "folder_exclude_patterns": ["*_cache", "cache", "figure", "*_files", ".Rproj.user"]
+        }],
+
+    "settings":{
+        "tab_size": 2,
+        "remember_open_files": true,
+        "caret_extra_width": 1,
+        "caret_style": "phase",
+        "close_windows_when_empty": false,
+        "copy_with_empty_selection": false,
+        "drag_text": false,
+        "draw_minimap_border": true,
+        "enable_tab_scrolling": false,
+        "font_face": "Anonymous Pro",
+        "font_options":["no_round"],
+        "highlight_line": true,
+        "ignored_packages":["Vintage"],
+        "match_brackets_content": true,
+        "match_selection": true,
+        "match_tags": true,
+        "open_files_in_new_window": false,
+        "overlay_scroll_bars": "enabled",
+        "preview_on_click": true,
+        "scroll_past_end": true,
+        "scroll_speed": 5.0,
+        "show_full_path": true,
+        "sidebar_default": "small",
+        "translate_tabs_to_spaces": true,
+        "trim_trailing_white_space_on_save": false,
+        "word_wrap": true,
+        "spell_check": true
+        }
+
+    }

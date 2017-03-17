@@ -1,31 +1,25 @@
 #' db as a list of data.frame-s
-#'
 #' db as a list of data.frame-s
-#'
+#' @export
 #' @examples
 #' \dontrun{
 #'  db2list(con)
 #'  }
-
 db2list <- function(con) {
 	tnams = dbGetQuery(con, "SELECT name FROM sqlite_master WHERE type='table'")
 	sapply(tnams$name, function(x)  dbGetQuery(con, paste("SELECT * FROM", x) ) )
-
-}
-
-
-
+	}
 
 #' Show db status
 #' Show db status
-#'
+#' @export
 #' @examples
 #' \dontrun{
 #'  CZshowStatus()
 #'  }
 CZshowStatus <- function() {
 	stopifnot( colorZapper_file_active())
-	d = dbGetQuery(options()$cz.con, "
+	d = dbGetQuery(getOption('cz.con'), "
 	SELECT count(id) replicates, id, processed, mark, fileName FROM 
 		(select f.id, CASE WHEN r.id is null then 0  else 1 END as processed, mark, 
 			CASE WHEN instr(wkt, 'MULTIPOINT')	THEN 'points' 
@@ -38,60 +32,34 @@ CZshowStatus <- function() {
 				
 	d$fileName = gsub("((\\.(?i)(jpg|jpeg|png|gif|bmp|tif|tiff))$)", "", basename(d$fileName) )
 	d
-} 
-
+	} 
 
 #' colorZapper data
 #' colorZapper data
-#'
+#' @export
 #' @examples
 #' \dontrun{
-#'  CZdata(fun = median)
+#'  CZdata(what = 'ROI')
 #'  }
+CZdata <- function(what = c('ROI', 'ALL')) {
+  stopifnot( colorZapper_file_active())
 
-CZdataFrame <- function(fun = median) {
-  	stopifnot( colorZapper_file_active())
-	f = as.character(substitute(fun))
-	d = dbGetQuery(options()$cz.con, paste(
-	  '
-	  SELECT R, G, B, f.ID, w.mark, f.path, wkt
-		FROM
-		(SELECT', f,'(R) R,', f,'(G) G,', f,'(B) B, roi_pk FROM RGB group by roi_pk) c
-	  JOIN 
-		ROI w
-	  ON c.roi_PK = w.pk
-	  JOIN files f 
-		ON f.id = w.id
-	  order by f.id
-	  ') )
-	#hsv
-	d = cbind(d, data.frame(t( rgb2hsv(  t(d[, c("R", "G", "B")])  ))) )
-	# hex
-	d$hexCol = rgb(d$R, d$G, d$B, maxColorValue = 255)
+  if(what == 'ROI')
+  sql = "SELECT R, G, B, f.id, w.mark, f.path, wkt FROM ROI_RGB  c 
+					JOIN  ROI w ON c.roi_PK = w.pk
+					JOIN files f  ON f.id = w.id"
+	if(what == 'ALL')					 
+   sql = "SELECT R, G, B, f.id, f.path FROM ALL_RGB a 
+					 JOIN files f  ON f.id = a.all_pk"
+
+  d = dbGetQuery(getOption('cz.con'), sql) %>%  data.table
 	
-	d = d[, c("R", "G", "B", "h", "s", "v","hexCol", "id", "mark", "path", "wkt") ]
+  d[, hexCol := rgb(R, G, B, maxColorValue = 255) ]
+	d = cbind(d, data.frame(t( rgb2hsv(  t(d[, c("R", "G", "B")])  ))) )
 
-	d[is.na(d$mark), "mark"] = "not_defined"
 	d
 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	}
 
 
 

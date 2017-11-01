@@ -8,8 +8,8 @@
 CZextractROI <- function(parralel = TRUE) {
 	stopifnot( colorZapper_file_active())
 	
-	dbGetQuery(getOption('cz.con'), "DELETE FROM ROI_RGB")
-	dbGetQuery(getOption('cz.con'), "VACUUM") 
+	dbExecute(getOption('cz.con'), "DELETE FROM ROI_RGB")
+	dbExecute(getOption('cz.con'), "VACUUM") 
 
 	if(parralel) {
 		cl = makePSOCKcluster(detectCores()-1); registerDoParallel(cl)
@@ -54,8 +54,8 @@ CZextractROI <- function(parralel = TRUE) {
 CZextractALL <- function(parralel = TRUE) {
 	stopifnot( colorZapper_file_active())
 	
-	dbGetQuery(getOption('cz.con'), "DELETE FROM ALL_RGB")
-	dbGetQuery(getOption('cz.con'), "VACUUM") 
+	dbExecute(getOption('cz.con'), "DELETE FROM ALL_RGB")
+	dbExecute(getOption('cz.con'), "VACUUM") 
 
 	if(parralel) {
 		cl = makePSOCKcluster(detectCores()-1); registerDoParallel(cl)
@@ -73,7 +73,8 @@ CZextractALL <- function(parralel = TRUE) {
 		o = data.table(ri[])
 		o[, path := dl[[i]]$id[1] ]
 		o
-    }	
+    }
+    	
 	O = rbindlist(O)
 	setnames(O, c("R", "G", "B", "all_pk")	 )
 		

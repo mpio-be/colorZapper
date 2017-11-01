@@ -22,7 +22,7 @@ CZaddFiles <- function(dir)	{
 	dbWriteTable(getOption('cz.con'), "files", f, row.names = FALSE, append = TRUE)
 	
 	# remove duplicates
-	dbGetQuery(getOption('cz.con'), 
+	dbExecute(getOption('cz.con'), 
 			"delete   from files where  id not in
 				(select  min(id) from files group by path)")
 	

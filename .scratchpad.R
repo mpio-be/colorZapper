@@ -13,6 +13,7 @@
 
 	# extract all 
 	CZextractALL()
+
 	x = CZdata(what = 'ALL')
 
 	# define 1 point per image
@@ -38,7 +39,7 @@
 	CZextractROI(parralel = FALSE)
 
 	# fetch data
-	d = CZdataFrame()
+d = CZdata(what = 'ALL')
 	head(d)
 	barplot(rep(1, nrow(d)), col = d$hexCol)
 

@@ -33,7 +33,7 @@ czopen <- function(path) {
   create = as.character(Sys.time()),
   version = as.character(packageVersion("colorZapper")) )
 
-  dbGetQuery(con, 
+  dbExecute(con, 
   'CREATE TABLE "nfo" (
   	"user" VARCHAR, 
   	"create" DATETIME, 
@@ -42,13 +42,13 @@ czopen <- function(path) {
   dbWriteTable(con, "nfo", nfo, row.names = FALSE, append = TRUE)
   
   # files table	
-  dbGetQuery(con, 
+  dbExecute(con, 
   	'CREATE  TABLE files (
   	"path" VARCHAR, 
   	"id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL )')
   
   # ROI
-  dbGetQuery(con,'
+  dbExecute(con,'
   CREATE TABLE "ROI" (
 	"id" INTEGER NOT NULL , 
 	"wkt" TEXT NOT NULL , 
@@ -57,7 +57,7 @@ czopen <- function(path) {
   ')
   
   # ROI_RGB
-  dbGetQuery(con,'
+  dbExecute(con,'
   CREATE TABLE "ROI_RGB" (
   "R" float, 
   "G" float, 
@@ -66,7 +66,7 @@ czopen <- function(path) {
   ')  
 
   # ALL_RGB
-  dbGetQuery(con,'
+  dbExecute(con,'
   CREATE TABLE "ALL_RGB" (
 	"R" float, 
 	"G" float, 

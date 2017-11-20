@@ -54,8 +54,9 @@ CZextractROI <- function(parralel = TRUE) {
 		 O = O[, 1:4]	
 	}
 
+	setnames( O, c("roi_pk", "R", "G", "B")	 )
+	setcolorder( O, c( "R", "G", "B", "roi_pk")	 )
 
-	setnames(O, c("roi_pk", "R", "G", "B")	 )
 		
 	dbWriteTable(getOption('cz.con'), "ROI_RGB", O, row.names = FALSE, append = TRUE)
 				

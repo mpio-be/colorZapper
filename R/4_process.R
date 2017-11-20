@@ -11,6 +11,12 @@ CZextractROI <- function(parralel = TRUE) {
 	dbExecute(getOption('cz.con'), "DELETE FROM ROI_RGB")
 	dbExecute(getOption('cz.con'), "VACUUM") 
 
+
+	pb = tempfile(fileext = '.txt')
+	message("To follow progress monitor", sQuote(pb), "\n  e.g.,in linux, with\n tail -f ",pb,", | grep --line-buffered -Eo '[0-9]+' | sort -rn | head -n 1 " )
+
+
+
 	if(parralel) {
 		cl = makePSOCKcluster(detectCores()-1); registerDoParallel(cl)
 		on.exit(stopCluster(cl))
@@ -33,10 +39,22 @@ CZextractROI <- function(parralel = TRUE) {
                 if( inherits(res, "list") ) res = res[[1]]
                 cbind(res , id)
                 }, x =  wi, id = dl[[i]]$pk, SIMPLIFY = FALSE)
-		data.frame(res[[1]])
-	}	
+		
+		cat(i, file = pb, append = TRUE)
+		o = data.table(do.call(rbind, res))
+		if(nrow(o) < 4) stop('Only ', ncol(o)-1, ' channels found, expecting RGB')
+		o
+	 }	
 
 	O = rbindlist(O)
+	setcolorder(O, c('id', setdiff(names(O), 'id') ))
+
+	if(nrow(O) > 4) { 
+		warning('More than three (RGB?) channels found; ignoring channel(s) 5 through ', ncol(O) )
+		 O = O[, 1:4]	
+	}
+
+
 	setnames(O, c("R", "G", "B", "roi_pk")	 )
 		
 	dbWriteTable(getOption('cz.con'), "ROI_RGB", O, row.names = FALSE, append = TRUE)

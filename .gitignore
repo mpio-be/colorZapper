@@ -17,3 +17,5 @@
 vignettes/*.html
 vignettes/*.pdf
 vignettes/*.png
+/colorZapper.sublime-workspace
+*.sublime-workspace

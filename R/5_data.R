@@ -45,7 +45,7 @@ CZdata <- function(what = c('ROI', 'ALL')) {
   stopifnot( colorZapper_file_active())
 
   if(what == 'ROI')
-  sql = "SELECT R, G, B, f.id, w.mark, f.path, wkt FROM ROI_RGB  c 
+  sql = "SELECT R, G, B, f.id, w.mark, f.path FROM ROI_RGB  c 
 					JOIN  ROI w ON c.roi_PK = w.pk
 					JOIN files f  ON f.id = w.id"
 	if(what == 'ALL')					 

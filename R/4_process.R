@@ -13,7 +13,7 @@ CZextractROI <- function(parralel = TRUE) {
 
 
 	pb = tempfile(fileext = '.txt')
-	message("To follow progress monitor", sQuote(pb), "\n  e.g.,in linux, with\n tail -f ",pb," | grep --line-buffered -Eo '[0-9]+' | sort -rn | head -n 1 " )
+	message("To follow progress monitor", sQuote(pb), "\n  e.g.,in linux, with\n tail -f ",pb)
 
 
 
@@ -40,7 +40,7 @@ CZextractROI <- function(parralel = TRUE) {
                 cbind(res , id)
                 }, x =  wi, id = dl[[i]]$pk, SIMPLIFY = FALSE)
 		
-		cat(i, file = pb, append = TRUE)
+		cat(i, ',', sep = '', file = pb, append = TRUE)
 		o = data.table(do.call(rbind, res))
 		if(nrow(o) < 4) stop('Only ', ncol(o)-1, ' channels found, expecting RGB')
 		o

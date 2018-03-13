@@ -1,23 +1,24 @@
 Package: colorZapper
 Type: Package
 Title: Color extraction utilities
+Description: Functions to extract color values from user-defined regions.
 Version: 1.4.2
 Depends: 
   R (>= 3.0.0), 
   RSQLite, 
   sp, 
-  raster, 
+  raster,
   rgeos,
-  magrittr,
-  data.table,
+  data.table
+Imports:
+  methods,
   doParallel,
-  foreach
+  foreach,
+  magrittr
 Suggests:
     testthat,
     knitr,
     rmarkdown
-Description: 
-  Functions to extract color values from user-defined regions
 Author: 
   Mihai Valcu, James Dale
 Maintainer: 

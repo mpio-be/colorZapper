@@ -2,6 +2,8 @@ language: r
 cache: packages
 sudo: required
 
+warnings_are_errors: false
+
 apt_packages:
   - gdal-bin
   - libgdal-dev
@@ -9,4 +11,3 @@ apt_packages:
   - netcdf-bin
   - libproj-dev
   - libgdal1h
-

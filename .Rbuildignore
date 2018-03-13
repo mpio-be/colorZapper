@@ -3,3 +3,5 @@
 ^\.httr-oauth$
 .travis.yml
 .scratchpad.R
+^.*\.sublime-project
+^.*\.sublime-workspace

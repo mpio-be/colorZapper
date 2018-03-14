@@ -1,12 +1,12 @@
-[![Build Status](https://travis-ci.org/valcu/colorZapper.svg?branch=master)](https://travis-ci.org/valcu/colorZapper)
+[![Build Status](https://travis-ci.org/mpio-be/colorZapper.svg?branch=master)](https://travis-ci.org/mpio-be/colorZapper)
 
 colorZapper
 ===========
-Extract colour from photos interactively
+Extract colour from photos interactively.
 
 ```R
 require(devtools)
-install_github("valcu/colorZapper")
+install_github("mpio-be/colorZapper")
 ```
 
 ```R
@@ -19,8 +19,8 @@ CZopen(path = tempfile() )
 CZaddFiles(dir)
 ```
 
+Interactively define points or polygons
 ```R
-#interactively define points or polygons
 
 # define 1 point per image
 CZdefine(points = 1)
@@ -42,8 +42,8 @@ CZshowStatus()
 CZdefine(polygons = 1, marks = c("wing", "tail"), what = 3 )
 ```
 
+Extract RGB values from Regions of Interest
 ```R
-# extract RGB values from Regions of Interest
 CZextractROI()
 
 # fetch data
@@ -55,8 +55,8 @@ barplot(rep(1, nrow(d)), col = d$hexCol)
  CZcheck()
 ```
 
+Extract RGB values from the entire image (batch mode).
 ```R
-# extract RGB values from the entire image
 CZextractALL()
 d = CZdata(what = 'ALL')
 ```

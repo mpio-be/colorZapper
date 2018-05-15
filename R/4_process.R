@@ -35,21 +35,22 @@ CZextractROI <- function(parralel = TRUE) {
 		
 		res = mapply( FUN = 
               function(x, id) { 
-                res = raster::extract(ri, x, method='bilinear')
-                if( inherits(res, "list") ) res = res[[1]]
-                cbind(res , id)
+                resi = raster::extract(ri, x, method='bilinear', df = TRUE)
+                if( inherits(resi, "list") ) res = res[[1]]
+                cbind(resi , id)
                 }, x =  wi, id = dl[[i]]$pk, SIMPLIFY = FALSE)
 		
 		cat(i, ',', sep = '', file = pb, append = TRUE)
 		o = data.table(do.call(rbind, res))
-		if(nrow(o) < 4) stop('Only ', ncol(o)-1, ' channels found, expecting RGB')
+		o[, ID := NULL] # from raster::extract
+		if(ncol(o) < 4) stop('Only ', ncol(o)-1, ' channels found, expecting 3 (RGB)')
 		o
 	 }	
 
 	O = rbindlist(O)
 	setcolorder(O, c('id', setdiff(names(O), 'id') ))
 
-	if(nrow(O) > 4) { 
+	if(ncol(O) > 4) { 
 		warning('More than three (RGB?) channels found; ignoring channel(s) 5 through ', ncol(O) )
 		 O = O[, 1:4]	
 	}

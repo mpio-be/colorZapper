@@ -14,7 +14,8 @@ require(colorZapper)
 # path to image directory
 dir = system.file(package = "colorZapper", "sample")
 # open/create a colorZapper file
-CZopen(path = tempfile() )
+cz_file = tempfile(fileext = '.sqlite')
+CZopen(path = cz_file)
 # associate files with the opened file
 CZaddFiles(dir)
 ```
@@ -48,8 +49,8 @@ CZextractROI()
 
 # fetch data
 d = CZdata(what = 'ROI')
-head(d)
-barplot(rep(1, nrow(d)), col = d$hexCol)
+
+scales::show_col(d$hexCol)
 
 #check defined regions
  CZcheck()

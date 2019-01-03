@@ -1,7 +1,15 @@
 #' Extract data
 #' Extract data from regions of interest.
 #' @export
-#' @examples
+
+#' @importFrom raster brick extract
+#' @importFrom rgeos readWKT
+#' @importFrom data.table data.table rbindlist setcolorder setnames :=
+#' @importFrom parallel   makePSOCKcluster  detectCores stopCluster 
+#' @importFrom doParallel  registerDoParallel 
+#' @importFrom foreach   %dopar%  foreach registerDoSEQ
+
+#' @examples 
 #' \dontrun{
 #'  CZextractROI()
 #'  }
@@ -28,10 +36,10 @@ CZextractROI <- function(parralel = TRUE) {
 	dl = split(d, d$id)
 	
 
- 	O = foreach(i = 1:length(dl), .packages = c('RSQLite', 'data.table','rgeos','raster')) %dopar% {
+ 	O = foreach(i = 1:length(dl), .packages = 'colorZapper') %dopar% {
 		ri = brick (  dl[[i]]$path[1]  , crs = NA, nl = 3) 
 		
-		wi = lapply(dl[[i]]$wkt,  readWKT)
+		wi = lapply(dl[[i]]$wkt,  rgeos::readWKT)
 		
 		res = mapply( FUN = 
               function(x, id) { 
@@ -88,7 +96,7 @@ CZextractALL <- function(parralel = TRUE) {
 	dl = split(d, d$id)
 	
 
- 	O = foreach(i = 1:length(dl), .packages = c('RSQLite', 'data.table','rgeos','raster')) %dopar% {
+ 	O = foreach(i = 1:length(dl), .packages = 'colorZapper') %dopar% {
 		ri = brick (  dl[[i]]$path[1]  , crs = NA, nl = 3) 
 		o = data.table(ri[])
 		o[, path := dl[[i]]$id[1] ]

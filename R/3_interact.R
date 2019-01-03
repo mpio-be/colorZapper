@@ -1,6 +1,7 @@
 #' Define regions of interest.
 #' Interactively define points or polygons using mouse clicks.
 #' @export
+#' @importFrom raster plotRGB
 #' @examples \dontrun{
 #' require(colorZapper)
 #' dir = system.file(package = "colorZapper", "sample")

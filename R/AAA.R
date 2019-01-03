@@ -7,29 +7,17 @@
 	
 	}
 
+#  https://github.com/Rdatatable/data.table/issues/850
+utils::globalVariables(c('hexCol', 'R', 'G', 'B', 'i', 'path', 'ID'))
 
-
-# data.table, foreach, rangeMapExport 'values'
-# utils::globalVariables(c('i', '.', 'value', 'CON'))
-
-#' @import  data.table  raster rgeos RSQLite sp
-NULL
-
+#' @import RSQLite
 
 #' @importFrom grDevices    adjustcolor  dev.off  pdf  rgb  rgb2hsv
 NULL
-#' @importFrom graphics     locator  mtext  points
+#' @importFrom graphics     locator  mtext  points plot
 NULL
 #' @importFrom utils        flush.console  packageVersion
 NULL
 
 
-#' @importFrom parallel   makePSOCKcluster  detectCores stopCluster 
-NULL
-#' @importFrom doParallel  registerDoParallel 
-NULL
-#' @importFrom foreach   %dopar%  foreach registerDoSEQ
-NULL
-#' @importFrom magrittr   %>%  
-NULL
 

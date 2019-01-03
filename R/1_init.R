@@ -1,24 +1,5 @@
 
-#' @export
-czIsValid <- function(con) { 
-  
-  stopifnot(  dbIsValid(con) )
-  
-  true_format = list(
-    nfo     = c("user", "create", "version"), 
-    files   = c("path", "id"), 
-  	ROI     = c("id", "wkt", "mark", "pk"),
-    ROI_RGB = c("R", "G", "B", "roi_pk"), 
-  	ALL_RGB = c("R", "G", "B", "all_pk")
-    )
-  
-  this_format = sapply(dbListTables(con), function(x) dbListFields(con, x))
-  
-  identical(true_format, this_format[names(true_format)])
-  
-	}
 
-#' @export	
 czopen <- function(path) {
   con = dbConnect(dbDriver("SQLite"), path)
   initExtension(con)
@@ -80,14 +61,6 @@ czopen <- function(path) {
 	
 	}
 
-#' @export
-colorZapper_file_active <- function() {
- if( inherits(getOption('cz.con'), "SQLiteConnection" ) && 
-	dbIsValid(getOption('cz.con')) && 
-	czIsValid(getOption('cz.con')) ) TRUE else FALSE
-	}
-	
-
 #' Open a colorZapper file.
 #' Open a colorZapper file.
 #' @export
@@ -101,10 +74,41 @@ colorZapper_file_active <- function() {
 CZopen <- function(path) {
   invisible(suppressWarnings(try(dbDisconnect(getOption('cz.con')), silent = TRUE)))
   options( cz.con = czopen(path = path) )
-  return(colorZapper_file_active()	)
+  return(colorZapper_file_active()  )
   }
+  
+  
+
+czIsValid <- function(con) { 
+  
+  stopifnot(  dbIsValid(con) )
+  
+  true_format = list(
+    nfo     = c("user", "create", "version"), 
+    files   = c("path", "id"), 
+    ROI     = c("id", "wkt", "mark", "pk"),
+    ROI_RGB = c("R", "G", "B", "roi_pk"), 
+    ALL_RGB = c("R", "G", "B", "all_pk")
+    )
+  
+  this_format = sapply(dbListTables(con), function(x) dbListFields(con, x))
+  
+  identical(true_format, this_format[names(true_format)])
+  
+  }
+
+
+#' Checks for an active colorZapper project.
+#' Checks for an active colorZapper project.
+#' @export
+colorZapper_file_active <- function() {
+ if( inherits(getOption('cz.con'), "SQLiteConnection" ) && 
+	dbIsValid(getOption('cz.con')) && 
+	czIsValid(getOption('cz.con')) ) TRUE else FALSE
+	}
 	
-	
+
+
 		
 		
 		

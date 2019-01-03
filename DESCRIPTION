@@ -4,25 +4,26 @@ Title: Color extraction utilities
 Description: Functions to extract color values from user-defined regions.
 Version: 1.4.3
 Depends: 
-  R (>= 3.0.0), 
-  RSQLite, 
-  sp, 
-  raster,
-  rgeos,
-  data.table
+  R (>= 3.0.0)
 Imports:
   methods,
+  RSQLite,
   doParallel,
   foreach,
-  magrittr
+  data.table,
+  magrittr,
+  raster,
+  rgeos
 Suggests:
     testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    sf
+LazyData: true
 Author: 
   Mihai Valcu, James Dale
 Maintainer: 
   Mihai Valcu <valcu@orn.mpg.de>
-License: 
-  GPL (>= 2)
-RoxygenNote: 6.0.1
+License: GPL-3
+Encoding: UTF-8
+RoxygenNote: 6.1.1

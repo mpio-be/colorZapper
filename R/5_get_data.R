@@ -1,6 +1,6 @@
 #' db as a list of data.frame-s
-#' db as a list of data.frame-s
 #' @export
+#' @importFrom magrittr %>%
 #' @examples
 #' \dontrun{
 #'  db2list(con)

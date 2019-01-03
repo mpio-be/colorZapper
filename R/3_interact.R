@@ -2,6 +2,7 @@
 #' Interactively define points or polygons using mouse clicks.
 #' @export
 #' @importFrom raster plotRGB
+#' @importFrom rgeos plot
 #' @examples \dontrun{
 #' require(colorZapper)
 #' dir = system.file(package = "colorZapper", "sample")
@@ -29,13 +30,13 @@ signature = c(points = "numeric", polygons = "missing"),
 	for(i in 1:nrow(f) ) {
 	bi = brick (f[i, 'path'], crs = NA, nl = 3)    
 
-	plotRGB (bi, maxpixels = Inf)
+	raster::plotRGB (bi, maxpixels = Inf)
 
 	for(j in 1:length(marks) ) {
 		v = locator(type = "p", n = points, ...) 
 		v = paste("MULTIPOINT(", paste("(", v$x, v$y, ")", collapse = ","), ")")
 		
-		points(readWKT(v), cex = 2)
+		points(rgeos::readWKT(v), cex = 2)
 		
 		d = data.frame( id = f[i, 'id'], wkt = v, mark = marks[j]  , pk = NA)
 		dbWriteTable(getOption('cz.con'), "ROI", d, row.names = FALSE, append = TRUE)	
@@ -69,7 +70,7 @@ signature = c(points = "missing", polygons = "numeric"),
 	for(i in 1:nrow(f) ) {
 		bi = brick (f[i, 'path'], crs = NA, nl = 3)    
 		marksCol = as.numeric(factor(marks))
-		plotRGB (bi, maxpixels = Inf)
+		raster::plotRGB (bi, maxpixels = Inf)
 		
 		for(j in 1:length(marks) ) {
 
@@ -86,7 +87,7 @@ signature = c(points = "missing", polygons = "numeric"),
 			gp = paste('((', gp, '))', collapse = ",")
 			gp = paste('MULTIPOLYGON(', gp, ')')
 			
-			plot(readWKT(gp), border = 2, col = adjustcolor(marksCol[j], .2), add = T)
+			plot(rgeos::readWKT(gp), border = 2, col = adjustcolor(marksCol[j], .2), add = TRUE)
 			
 			d = data.frame( id = f[i, 'id'], wkt = gp, mark = marks[j], pk = NA)
 			dbWriteTable(getOption('cz.con'), "ROI", d, row.names = FALSE, append = TRUE)	
@@ -126,8 +127,8 @@ signature = c(points = "missing", polygons = "numeric"),
 
 	for(i in d$files$id ) {
 		fi = d$files[d$files$id == i, 'path'] 
-		ri = brick ( fi , crs = NA, nl = 3) 
-		roii = lapply(d$ROI[d$ROI$id == i, 'wkt'], readWKT)
+		ri = raster::brick ( fi , crs = NA, nl = 3) 
+		roii = lapply(d$ROI[d$ROI$id == i, 'wkt'], rgeos::readWKT)
 		
 		plotRGB(ri)
 		for(j in roii) {

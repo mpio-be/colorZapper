@@ -2,12 +2,12 @@
 #' Extract data from regions of interest.
 #' @export
 
-#' @importFrom raster brick extract
-#' @importFrom rgeos readWKT
-#' @importFrom data.table data.table rbindlist setcolorder setnames :=
-#' @importFrom parallel   makePSOCKcluster  detectCores stopCluster 
+#' @importFrom raster      brick extract
+#' @importFrom rgeos       readWKT
+#' @importFrom data.table  data.table rbindlist setcolorder setnames :=
+#' @importFrom parallel    makePSOCKcluster  detectCores stopCluster 
 #' @importFrom doParallel  registerDoParallel 
-#' @importFrom foreach   %dopar%  foreach registerDoSEQ
+#' @importFrom foreach     %dopar%  foreach registerDoSEQ
 
 #' @examples 
 #' \dontrun{
@@ -104,7 +104,23 @@ CZextractALL <- function(parralel = TRUE) {
     }
     	
 	O = rbindlist(O)
-	setnames(O, c("R", "G", "B", "all_pk")	 )
+
+	if(!ncol(O) %in% c(4,5)) {
+		print(head(O))
+		stop("Unknown image format")
+		}
+
+	if(ncol(O) == 4) 
+		setnames(O, c("R", "G", "B", "all_pk") )
+
+
+	if(ncol(O) == 5) {
+		message('Four channels found. Assuming channel 4 sets transparency.')
+		setnames(O, c("R", "G", "B", "a", "all_pk")	 )
+		O = O[a > 0]
+		O[, a:= NULL]
+		}
+
 		
 	dbWriteTable(getOption('cz.con'), "ALL_RGB", O, row.names = FALSE, append = TRUE)
 				

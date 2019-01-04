@@ -33,6 +33,7 @@ color_scores <- function(d, rgb = c('R','G','B'), id = 'id', sex = 'sex', maleLe
 		setnames(x, c('R','G','B', 'id', 'sex') )
 
 		x = x[, .(R = group(R, ...), G = group(G, ...), B = group(B, ...)), by = .(id,sex)]
+		x = x[, .(R = group(R), G = group(G), B = group(B)), by = .(id,sex)]
 		x[, k := .I]
 
 	# compute all distances 
@@ -49,7 +50,7 @@ color_scores <- function(d, rgb = c('R','G','B'), id = 'id', sex = 'sex', maleLe
 
 		# subset
 		ss = dsti[v>=q, k2]
-		nmales = x[id %in% ss & sex== maleLevel] %>% nrow
+		nmales = x[k %in% ss & sex== maleLevel] %>% nrow
 
 		# score: prop male-like
 		csc = nmales/length(ss)

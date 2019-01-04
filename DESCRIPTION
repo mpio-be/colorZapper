@@ -13,12 +13,13 @@ Imports:
   data.table,
   magrittr,
   raster,
-  rgeos
+  rgeos,
+  sf,
+  stringr
 Suggests:
     testthat,
     knitr,
     rmarkdown,
-    sf
 LazyData: true
 Author: 
   Mihai Valcu, James Dale

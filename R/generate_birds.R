@@ -4,15 +4,19 @@
 #' Title generate n species (both sexes) with males (slightly) more colorful than females 
 #'
 #' @param n No of species
-#' @param body_parts one of: "crown", "forehead", "lore", "chin", "throat", "nape", "ear-coverts", "breast", "mantle", "scapulars", "coverts", "alula", "flight-feathers", "flank", "back", "rump", "belly", "vent", "tail". Default to all
-
+#' @param body_parts one of: "crown", "forehead", "lore", "chin", "throat", "nape", "ear-coverts", "breast", "mantle", 
+#' 													 "scapulars", "coverts", "alula", "flight-feathers", "flank", "back", "rump", "belly", "vent", "tail". 
+#' 			   Default to all
 #' @param dir Directory to save images
+#' @param res  	Resolution, in dots per inch.
 #'
+#' @importFrom data.table  setDT
+#' @importFrom sf  plot_sf
+#' 
 #' @return dir
 #' @export
 #'
 #' @examples
-#'\dontrun{
 #' f = generateBirds(n = 10) 
 #' cz_file = tempfile(fileext = '.sqlite')
 #' CZopen(path = cz_file)
@@ -20,12 +24,8 @@
 #' CZextractALL()
 #' d = CZdata(what = 'ALL')
 #' 
-#' 
-#' 
-#' 
-#' 
-#'} 
-generateBirds <- function(n, dir = tempdir(), body_parts) {
+
+generateBirds <- function(n, dir = tempdir(), body_parts, res = 10) {
 		
 		x = colorZapper:::BirdBodyParts
 		setDT(x)
@@ -51,13 +51,13 @@ generateBirds <- function(n, dir = tempdir(), body_parts) {
    		x[parts%in% body_parts, col := hsv(h,s,v), by = id]
 
    		# save female
-   		bitmap(file = paste0(dir,"/", sprintf("%02d", i), '_f.png')  , type = "pngalpha")
+   		bitmap(file = paste0(dir,"/", sprintf("%02d", i), '_f.png')  , type = "pngalpha", res = res)
 			par(mar = c(0,0,0,0) )
 			plot(x$geometry, col = x$col, main = NA, border = NA)
 			dev.off()
 
 			# save male
-			bitmap(file = paste0(dir,"/", sprintf("%02d", i), '_m.png')  , type = "pngalpha")
+			bitmap(file = paste0(dir,"/", sprintf("%02d", i), '_m.png')  , type = "pngalpha", res = res)
 			par(mar = c(0,0,0,0) )
 			x[parts%in%maleParts, ':=' (h=0.9, s = 0.5)]
 			x[parts%in%maleParts, col := rgb(h,s,v), by = id]

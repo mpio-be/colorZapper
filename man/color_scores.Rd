@@ -5,13 +5,13 @@
 \title{Compute color scores}
 \usage{
 color_scores(d, rgb = c("R", "G", "B"), id = "id", sex = "sex",
-  maleLevel, group = mean, prob = 0.01, ...)
+  maleLevel, prob = 0.01, ...)
 }
 \description{
 Compute color scores
 }
 \examples{
-/donotrun{
+\dontrun{
 
 f = generateBirds(n = 100) 
 cz_file = tempfile(fileext = '.sqlite')
@@ -20,8 +20,15 @@ CZaddFiles(f)
 CZextractALL()
 d = CZdata(what = 'ALL')
 d[, sex := stringr::str_split(path, '_', simplify = TRUE)[2], by = 1:nrow(d)]
+d = d[, .(R = mean(R), G = mean(G), B = mean(B)), by = .(id,sex, path)]
 
 x =color_scores(d, maleLevel = 'm.png', prob = 0.05)
+
+z = merge(x[, .(id, col_score)], d, by = 'id')
+z[, col := rgb(R,G,B, maxColorValue = 255), by = 1:nrow(z)]
+setorder(z, col_score)
+scales::show_col(z$col, borders = NA, labels = FALSE)
+
 }
 
 }

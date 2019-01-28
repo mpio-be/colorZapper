@@ -15,7 +15,8 @@ Imports:
   raster,
   rgeos,
   sf,
-  stringr
+  stringr,
+  scales
 Suggests:
     testthat,
     knitr,

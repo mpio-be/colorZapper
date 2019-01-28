@@ -12,9 +12,7 @@ generateBirds(n, dir = tempdir(), body_parts, res = 10)
 
 \item{dir}{Directory to save images}
 
-\item{body_parts}{one of: "crown", "forehead", "lore", "chin", "throat", "nape", "ear-coverts", "breast", "mantle", 
-                                      "scapulars", "coverts", "alula", "flight-feathers", "flank", "back", "rump", "belly", "vent", "tail". 
-Default to all}
+\item{body_parts}{one of: "crown", "forehead", "lore", "chin", "throat", "nape", "ear-coverts", "breast", "mantle",  "scapulars", "coverts", "alula", "flight-feathers", "flank", "back", "rump", "belly", "vent", "tail".  Default to all}
 
 \item{res}{Resolution, in dots per inch.}
 }
@@ -27,10 +25,6 @@ Title generate n species (both sexes) with males (slightly) more colorful than f
 }
 \examples{
 f = generateBirds(n = 10) 
-cz_file = tempfile(fileext = '.sqlite')
-CZopen(path = cz_file)
-CZaddFiles(f)
-CZextractALL()
-d = CZdata(what = 'ALL')
+f = generateBirds(n = 10, body_parts = "flight-feathers") 
 
 }

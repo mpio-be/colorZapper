@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/mpio-be/colorZapper.svg?branch=master)](https://travis-ci.org/mpio-be/colorZapper)
+[![CRAN status](https://www.r-pkg.org/badges/version/colorZapper)](https://cran.r-project.org/package=colorZapper)
+
 
 colorZapper
 ===========

@@ -7,7 +7,7 @@
 
 #' Compute color scores
 #' @examples
-#' /donotrun{
+#' \dontrun{
 #' 
 #' f = generateBirds(n = 100) 
 #' cz_file = tempfile(fileext = '.sqlite')
@@ -16,25 +16,36 @@
 #' CZextractALL()
 #' d = CZdata(what = 'ALL')
 #' d[, sex := stringr::str_split(path, '_', simplify = TRUE)[2], by = 1:nrow(d)]
+#' d = d[, .(R = mean(R), G = mean(G), B = mean(B)), by = .(id,sex, path)]
 #' 
 #' x =color_scores(d, maleLevel = 'm.png', prob = 0.05)
+#' 
+#' z = merge(x[, .(id, col_score)], d, by = 'id')
+#' z[, col := rgb(R,G,B, maxColorValue = 255), by = 1:nrow(z)]
+#' setorder(z, col_score)
+#' scales::show_col(z$col, borders = NA, labels = FALSE)
+#' 
 #' }
 #' 
-#' @importFrom data.table  copy set setnames melt .I
+#' @importFrom data.table  copy set setnames setorder melt .I
 #' @importFrom stringr  str_split
 #' @export
 
 
 
-color_scores <- function(d, rgb = c('R','G','B'), id = 'id', sex = 'sex', maleLevel , group = mean, prob = 0.01 , ... ) {
+color_scores <- function(d, rgb = c('R','G','B'), id = 'id', sex = 'sex', maleLevel , prob = 0.01 , ... ) {
 
-	# group by id and sex
+	# align
 		x = d[, c(rgb, id, sex), with = FALSE]
 		setnames(x, c('R','G','B', 'id', 'sex') )
 
-		x = x[, .(R = group(R, ...), G = group(G, ...), B = group(B, ...)), by = .(id,sex)]
-		x = x[, .(R = group(R), G = group(G), B = group(B)), by = .(id,sex)]
 		x[, k := .I]
+
+	 # N
+	 N = ceiling(prob * nrow(x)	) %>% round
+	 if(N < 3) warning("color score is based on ", N, " points only, increase prob ?")
+
+
 
 	# compute all distances 
 		dst = x[, .(R,G,B) ] %>% dist(method = "euclidean", diag = FALSE) 
@@ -44,16 +55,12 @@ color_scores <- function(d, rgb = c('R','G','B'), id = 'id', sex = 'sex', maleLe
 	# compute scores
 	for(i in x$k) {
 		dsti = dst[k1 ==i]
-		# setorder(dsti, v)
+		setorder(dsti, -v) # or otherwise use quantile()
 
-		q = dsti[, quantile(v, probs = 1-prob, na.rm = TRUE)]
-
-		# subset
-		ss = dsti[v>=q, k2]
-		nmales = x[k %in% ss & sex== maleLevel] %>% nrow
+		o = merge(dsti[1:N], x[, .(k, sex)], by.x = 'k2', by.y = 'k'  )
 
 		# score: prop male-like
-		csc = nmales/length(ss)
+		csc = o[sex== maleLevel] %>% nrow / nrow(o)
 
 		set(x, i = i, 'col_score', csc)
 	

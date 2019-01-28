@@ -1,14 +1,50 @@
 #  https://github.com/Rdatatable/data.table/issues/850
-utils::globalVariables(c('hexCol', 'R', 'G', 'B', 'i', 'path', 'ID'))
+utils::globalVariables(c(
+	'.', 
+	'.N',
+	'a',
+	'B',
+	'bitmap',
+	'dist',
+	'female_col',
+	'G',
+	'head',
+	'hexCol',
+	'hf',
+	'hm',
+	'hsv',
+	'i',
+	'ID',
+	'k',
+	'k1',
+	'male_col',
+	'par',
+	'parts',
+	'path',
+	'R',
+	'rnorm',
+	'sf',
+	'sm',
+	'v',
+	'value',
+	'vf',
+	'vm'
+	))
+
+
+
 
 #' @import RSQLite
 NULL
-#' @importFrom grDevices    adjustcolor  dev.off  pdf  rgb  rgb2hsv
+#' @importFrom grDevices    adjustcolor  dev.off  pdf  rgb  rgb2hsv bitmap hsv
 NULL
-#' @importFrom graphics     locator  mtext  points plot
+#' @importFrom graphics     par locator  mtext  points plot
 NULL
-#' @importFrom utils        flush.console  packageVersion
+#' @importFrom utils        head flush.console  packageVersion
 NULL
+#' @importFrom stats        dist  rnorm
+NULL
+
 
 
 .onLoad <- function(libname, pkgname) {

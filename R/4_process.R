@@ -37,7 +37,7 @@ CZextractROI <- function(parralel = TRUE) {
 	
 
  	O = foreach(i = 1:length(dl), .packages = 'colorZapper') %dopar% {
-		ri = brick (  dl[[i]]$path[1]  , crs = NA, nl = 3) 
+		ri = brick (  dl[[i]]$path[1]  ) 
 		
 		wi = lapply(dl[[i]]$wkt,  rgeos::readWKT)
 		
@@ -97,7 +97,7 @@ CZextractALL <- function(parralel = TRUE) {
 	
 
  	O = foreach(i = 1:length(dl), .packages = 'colorZapper') %dopar% {
-		ri = brick (  dl[[i]]$path[1]  , crs = NA, nl = 3) 
+		ri = brick (  dl[[i]]$path[1]  ) 
 		o = data.table(ri[])
 		o[, path := dl[[i]]$id[1] ]
 		o

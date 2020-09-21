@@ -7,8 +7,7 @@ colorZapper
 Extract colour from photos interactively.
 
 ```R
-require(devtools)
-install_github("mpio-be/colorZapper")
+remotes::install_github("mpio-be/colorZapper")
 ```
 
 ```R

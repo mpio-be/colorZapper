@@ -28,7 +28,13 @@ signature = c(points = "numeric", polygons = "missing"),
 	if(missing(what) & nrow(f) == 0) stop("You pushed points on all images here.")
 
 	for(i in 1:nrow(f) ) {
-	bi = brick (f[i, 'path'], crs = NA, nl = 3)    
+
+	bi = brick(f[i, 'path'] )
+
+	if( raster::nbands(bi) != 3) 
+		warning(basename(f[i, 'path']), ' has ', nbands(bi), ' bands but 3 are expected.')
+
+
 
 	raster::plotRGB (bi, maxpixels = Inf)
 
@@ -70,7 +76,7 @@ signature = c(points = "missing", polygons = "numeric"),
 	for(i in 1:nrow(f) ) {
 		bi = brick(f[i, 'path'] )
 
-		if( nbands(bi) != 3) 
+		if( raster::nbands(bi) != 3) 
 			warning(basename(f[i, 'path']), ' has ', nbands(bi), ' bands but 3 are expected.')
 
 
@@ -132,7 +138,7 @@ signature = c(points = "missing", polygons = "numeric"),
 
 	for(i in d$files$id ) {
 		fi = d$files[d$files$id == i, 'path'] 
-		ri = raster::brick ( fi , crs = NA, nl = 3) 
+		ri = raster::brick( fi ) 
 		roii = lapply(d$ROI[d$ROI$id == i, 'wkt'], rgeos::readWKT)
 		
 		plotRGB(ri)

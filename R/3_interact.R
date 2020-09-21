@@ -68,7 +68,12 @@ signature = c(points = "missing", polygons = "numeric"),
 	
 	
 	for(i in 1:nrow(f) ) {
-		bi = brick (f[i, 'path'], crs = NA, nl = 3)    
+		bi = brick(f[i, 'path'] )
+
+		if( nbands(bi) != 3) 
+			warning(basename(f[i, 'path']), ' has ', nbands(bi), ' bands but 3 are expected.')
+
+
 		marksCol = as.numeric(factor(marks))
 		raster::plotRGB (bi, maxpixels = Inf)
 		

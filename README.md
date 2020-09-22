@@ -63,7 +63,9 @@ CZextractALL()
 d = CZdata(what = 'ALL')
 ```
 
-
+### Points to remember:
+* CZ works better outside Rstudio so just run it from a plain R console. 
+* Data are saved to a database file on your disk so you can stop and resume your work any time. 
 
 
 

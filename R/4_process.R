@@ -22,8 +22,8 @@ CZextractROI <- function(parallel = FALSE) {
 
 
 	if(parallel) {
-		message("To follow progress monitor", sQuote(pb), "\n  e.g.,in linux, with\n tail -f ",pb)
 		pb = tempfile(fileext = '.txt')
+		message("To follow progress monitor", sQuote(pb), "\n  e.g.,in linux, with\n tail -f ",pb)
 		cl = makePSOCKcluster(detectCores()-1); registerDoParallel(cl)
 		on.exit(stopCluster(cl))
 		on.exit(registerDoSEQ() )
@@ -88,8 +88,8 @@ CZextractALL <- function(parallel = FALSE) {
 	dbExecute(getOption('cz.con'), "VACUUM") 
 
 	if(parallel) {
-		message("To follow progress monitor", sQuote(pb), "\n  e.g.,in linux, with\n tail -f ",pb)
 		pb = tempfile(fileext = '.txt')
+		message("To follow progress monitor", sQuote(pb), "\n  e.g.,in linux, with\n tail -f ",pb)
 		cl = makePSOCKcluster(detectCores()-1); registerDoParallel(cl)
 		on.exit(stopCluster(cl))
 		on.exit(registerDoSEQ() )

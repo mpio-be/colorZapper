@@ -13,19 +13,17 @@
 #' \dontrun{
 #'  CZextractROI()
 #'  }
-CZextractROI <- function(parralel = TRUE) {
+CZextractROI <- function(parallel = FALSE) {
 	stopifnot( colorZapper_file_active())
 	
 	dbExecute(getOption('cz.con'), "DELETE FROM ROI_RGB")
 	dbExecute(getOption('cz.con'), "VACUUM") 
 
 
-	pb = tempfile(fileext = '.txt')
-	message("To follow progress monitor", sQuote(pb), "\n  e.g.,in linux, with\n tail -f ",pb)
 
-
-
-	if(parralel) {
+	if(parallel) {
+		message("To follow progress monitor", sQuote(pb), "\n  e.g.,in linux, with\n tail -f ",pb)
+		pb = tempfile(fileext = '.txt')
 		cl = makePSOCKcluster(detectCores()-1); registerDoParallel(cl)
 		on.exit(stopCluster(cl))
 		on.exit(registerDoSEQ() )
@@ -37,6 +35,11 @@ CZextractROI <- function(parralel = TRUE) {
 	
 
  	O = foreach(i = 1:length(dl), .packages = 'colorZapper') %dopar% {
+
+ 		if(!parallel) print(i)
+ 		if(parallel) cat(i, ',', sep = '', file = pb, append = TRUE)
+
+
 		ri = brick (  dl[[i]]$path[1]  ) 
 		
 		wi = lapply(dl[[i]]$wkt,  rgeos::readWKT)
@@ -48,14 +51,13 @@ CZextractROI <- function(parralel = TRUE) {
                 cbind(resi , id)
                 }, x =  wi, id = dl[[i]]$pk, SIMPLIFY = FALSE)
 		
-		cat(i, ',', sep = '', file = pb, append = TRUE)
 		o = data.table(do.call(rbind, res))
 		o[, ID := NULL] # from raster::extract
 		if(ncol(o) < 4) stop('Only ', ncol(o)-1, ' channels found, expecting 3 (RGB)')
 		o
 	 }	
 
-	O = rbindlist(O)
+	O = rbindlist(O, use.names=FALSE)
 	setcolorder(O, c('id', setdiff(names(O), 'id') ))
 
 	if(ncol(O) > 4) { 
@@ -79,13 +81,15 @@ CZextractROI <- function(parralel = TRUE) {
 #' \dontrun{
 #'  CZextractALL()
 #'  }
-CZextractALL <- function(parralel = TRUE) {
+CZextractALL <- function(parallel = FALSE) {
 	stopifnot( colorZapper_file_active())
 	
 	dbExecute(getOption('cz.con'), "DELETE FROM ALL_RGB")
 	dbExecute(getOption('cz.con'), "VACUUM") 
 
-	if(parralel) {
+	if(parallel) {
+		message("To follow progress monitor", sQuote(pb), "\n  e.g.,in linux, with\n tail -f ",pb)
+		pb = tempfile(fileext = '.txt')
 		cl = makePSOCKcluster(detectCores()-1); registerDoParallel(cl)
 		on.exit(stopCluster(cl))
 		on.exit(registerDoSEQ() )
@@ -97,13 +101,17 @@ CZextractALL <- function(parralel = TRUE) {
 	
 
  	O = foreach(i = 1:length(dl), .packages = 'colorZapper') %dopar% {
+		
+		if(!parallel) print(i)
+		if(parallel) cat(i, ',', sep = '', file = pb, append = TRUE)			
+
 		ri = brick (  dl[[i]]$path[1]  ) 
 		o = data.table(ri[])
 		o[, path := dl[[i]]$id[1] ]
 		o
     }
     	
-	O = rbindlist(O)
+	O = rbindlist(O, use.names=FALSE)
 
 	if(!ncol(O) %in% c(4,5)) {
 		print(head(O))

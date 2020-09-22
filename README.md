@@ -46,7 +46,7 @@ CZdefine(polygons = 1, marks = c("wing", "tail"), what = 3 )
 
 Extract RGB values from Regions of Interest
 ```R
-CZextractROI()
+CZextractROI(parallel = FALSE)
 
 # fetch data
 d = CZdata(what = 'ROI')

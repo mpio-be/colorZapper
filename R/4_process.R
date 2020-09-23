@@ -150,7 +150,7 @@ CZrm <- function(fileNam) {
 		stop('None of the files exist in this project.')
 
 	if(nrow(ids) != length(fileNam)) 
-		warning('Some files do not exist in this project.')
+		warning('Some files do not exist in this project. Known files: \n', paste(basename(ids$path), collapse = '\n'))
 
 	rmids = paste(ids$id, collapse = ',')
 

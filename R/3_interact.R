@@ -129,26 +129,31 @@ signature = c(points = "missing", polygons = "numeric"),
 #' CZdefine(polygons = 1, what = 1)
 #' CZcheck()
 #' }
- CZcheck <-function(file = tempfile(fileext = ".pdf") ) {
+ CZcheck <- function(file = tempfile(fileext = ".pdf") ) {
 	stopifnot( colorZapper_file_active())
 
 	d = db2list(getOption('cz.con'))
 
+
 	pdf(file)
+	pb = txtProgressBar(1, length(d$files$id), style=3)
+	message('Printing images and marks to pdf ...')
 
 	for(i in d$files$id ) {
+		
+		setTxtProgressBar(pb, i)
+
 		fi = d$files[d$files$id == i, 'path'] 
 		ri = raster::brick( fi ) 
 		roii = lapply(d$ROI[d$ROI$id == i, 'wkt'], rgeos::readWKT)
 		
-		plotRGB(ri)
+		plotRGB(ri, margins = TRUE, main = basename(fi) )
+
 		for(j in roii) {
 			if( inherits(j, "SpatialPoints") ) 
 				points(j, col = "red", cex = 2) else
 				plot(j, border = "red", lwd = 2, col = adjustcolor("red", 0.4) , add = TRUE)
 		}
-
-		mtext(basename(fi), 2, line = -2, col = adjustcolor(1, .5))
 
 
 	}

@@ -5,9 +5,6 @@ sudo: required
 warnings_are_errors: false
 
 apt_packages:
+  - libudunits2-dev 
   - gdal-bin
-  - libgdal-dev
-  - libgdal1-dev
-  - netcdf-bin
   - libproj-dev
-  - libgdal1h

@@ -6,8 +6,4 @@ warnings_are_errors: false
 
 apt_packages:
   - gdal-bin
-  - libgdal-dev
-  - libgdal1-dev
-  - netcdf-bin
   - libproj-dev
-  - libgdal1h

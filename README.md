@@ -40,7 +40,7 @@ CZdefine(points = 1, marks = c("wing", "tail") , what = 4)
 CZshowStatus()
 
 #define polygons: 1 polygon per mark
-# once a polygon is drew press ESC 
+# see help(locator) for info on how to draw on an R graphic. 
 CZdefine(polygons = 1, marks = c("wing", "tail"), what = 3 )
 ```
 

@@ -4,8 +4,15 @@
 \alias{color_scores}
 \title{Compute color scores}
 \usage{
-color_scores(d, rgb = c("R", "G", "B"), id = "id", sex = "sex",
-  maleLevel, prob = 0.01, ...)
+color_scores(
+  d,
+  rgb = c("R", "G", "B"),
+  id = "id",
+  sex = "sex",
+  maleLevel,
+  prob = 0.01,
+  ...
+)
 }
 \description{
 Compute color scores

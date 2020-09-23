@@ -34,7 +34,7 @@ utils::globalVariables(c(
 
 
 
-#' @import RSQLite
+#' @import methods RSQLite  doParallel  foreach  data.table  magrittr  raster  rgeos  sf  stringr  scales
 NULL
 #' @importFrom grDevices    adjustcolor  dev.off  pdf  rgb  rgb2hsv bitmap hsv
 NULL

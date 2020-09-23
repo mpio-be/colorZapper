@@ -135,6 +135,39 @@ CZextractALL <- function(parallel = FALSE) {
 	}
 
 
+#' Remove entries
+#' Remove entries associated with given images
+#' @export
+
+CZrm <- function(fileNam) {
+	stopifnot( colorZapper_file_active())
+	
+	
+	ids = 	dbGetQuery(getOption('cz.con'), 'SELECT * from files ') %>% setDT
+	ids = ids[basename(path)  %in% fileNam]
+
+	if(nrow(ids) == 0) 
+		stop('None of the files exist in this project.')
+
+	if(nrow(ids) != length(fileNam)) 
+		warning('Some files do not exist in this project.')
+
+	rmids = paste(ids$id, collapse = ',')
+
+	o = dbExecute(getOption('cz.con'), paste("DELETE FROM ROI where id in (", rmids, ')') )
+	print(o)
+	
+	message('You need to run the CZextract* functions again!')		
+
+	dbExecute(getOption('cz.con'), "DELETE FROM ALL_RGB")
+	dbExecute(getOption('cz.con'), "DELETE FROM ROI_RGB")
+
+
+	dbExecute(getOption('cz.con'), "VACUUM") 
+
+
+				
+	}
 
 
 

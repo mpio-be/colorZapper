@@ -5,7 +5,7 @@
 \title{Extract data
 Extract data from regions of interest.}
 \usage{
-CZextractROI(parralel = TRUE)
+CZextractROI(parallel = FALSE)
 }
 \description{
 Extract data

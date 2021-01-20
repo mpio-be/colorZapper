@@ -42,22 +42,22 @@ CZshowStatus <- function() {
 #'  CZdata(what = 'ROI')
 #'  }
 CZdata <- function(what = c('ROI', 'ALL')) {
-  stopifnot( colorZapper_file_active())
+	stopifnot( colorZapper_file_active())
 
-  if(what == 'ROI')
-  sql = "SELECT R, G, B, f.id, w.mark, f.path FROM ROI_RGB  c 
+	if(what == 'ROI')
+		sql = "SELECT R, G, B, f.id, w.mark, f.path FROM ROI_RGB  c 
 					JOIN  ROI w ON c.roi_PK = w.pk
 					JOIN files f  ON f.id = w.id"
 	if(what == 'ALL')					 
-   sql = "SELECT R, G, B, f.id, f.path FROM ALL_RGB a 
+		sql = "SELECT R, G, B, f.id, f.path FROM ALL_RGB a 
 					 JOIN files f  ON f.id = a.all_pk"
 
-  d = dbGetQuery(getOption('cz.con'), sql) %>%  data.table
-	
-  d[, hexCol := rgb(R, G, B, maxColorValue = 255) ]
-	d = cbind(d, data.frame(t( rgb2hsv(  t(d[, c("R", "G", "B")])  ))) )
+	d = dbGetQuery(getOption('cz.con'), sql) %>%  data.table
 
-	d
+	d[!is.na(R), hexCol := rgb(R, G, B, maxColorValue = 255) ]
+	
+	cbind(d, data.frame(t( rgb2hsv(  t(d[, c("R", "G", "B")])  ))) )
+
 
 	}
 

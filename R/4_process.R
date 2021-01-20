@@ -48,16 +48,18 @@ CZextractROI <- function(parallel = FALSE) {
               function(x, id) { 
                 #resi = raster::extract(ri, x, method='bilinear', df = TRUE)
 
-                resi = exactextractr::exact_extract(ri, st_as_sf(x) , force_df = TRUE, progress = FALSE)[[1]]
+                resi = exactextractr::exact_extract(ri, st_as_sf(x) , force_df = TRUE, progress = FALSE)
 
+                if( inherits(resi, "list") ) resi = resi[[1]]
 
-                if( inherits(resi, "list") ) res = res[[1]]
-                cbind(resi , id)
+                o = data.table(resi)
+                cbind(o, id)
+
                 }, x =  wi, id = dl[[i]]$pk, SIMPLIFY = FALSE)
 		
-		o = data.table(do.call(rbind, res))
+		o = rbindlist(res)
 		
-		o[, ID := NULL] # from raster::extract
+		o[, coverage_fraction := NULL] 
 		if(ncol(o) < 4) stop('Only ', ncol(o)-1, ' channels found, expecting 3 (RGB)')
 		o
 	 }	

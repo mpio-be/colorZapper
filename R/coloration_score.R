@@ -35,41 +35,41 @@
 
 color_scores <- function(d, rgb = c('R','G','B'), id = 'id', sex = 'sex', maleLevel , prob = 0.01 , ... ) {
 
-	# align
-		x = d[, c(rgb, id, sex), with = FALSE]
-		setnames(x, c('R','G','B', 'id', 'sex') )
+    # align
+    x = d[, c(rgb, id, sex), with = FALSE]
+    setnames(x, c('R','G','B', 'id', 'sex') )
 
-		x[, k := .I]
+    x[, k := .I]
 
-	 # N
-	 N = ceiling(prob * nrow(x)	) %>% round
-	 if(N < 3) warning("color score is based on ", N, " points only, increase prob ?")
-
-
-
-	# compute all distances 
-		dst = x[, .(R,G,B) ] %>% dist(method = "euclidean", diag = FALSE) 
-		dst = melt(as.matrix(dst),  na.rm = TRUE ) %>% data.table %>% .[value > 0]
-		setnames(dst, c('k1','k2', 'v') )
-
-	# compute scores
-	for(i in x$k) {
-		dsti = dst[k1 ==i]
-		setorder(dsti, -v) # or otherwise use quantile()
-
-		o = merge(dsti[1:N], x[, .(k, sex)], by.x = 'k2', by.y = 'k'  )
-
-		# score: prop male-like
-		csc = o[sex== maleLevel] %>% nrow / nrow(o)
-
-		set(x, i = i, 'col_score', csc)
-	
-		}
+     # N
+    N = ceiling(prob * nrow(x)  ) %>% round
+    if(N < 3) warning("color score is based on ", N, " points only, increase prob ?")
 
 
-		x
-	
-	}
+
+    # compute all distances 
+        dst = x[, .(R,G,B) ] %>% dist(method = "euclidean", diag = FALSE) 
+    dst = melt(as.matrix(dst),  na.rm = TRUE ) %>% data.table %>% .[value > 0]
+    setnames(dst, c('k1','k2', 'v') )
+
+    # compute scores
+    for(i in x$k) {
+        dsti = dst[k1 ==i]
+        setorder(dsti, -v) # or otherwise use quantile()
+
+        o = merge(dsti[1:N], x[, .(k, sex)], by.x = 'k2', by.y = 'k'  )
+
+        # score: prop male-like
+        csc = o[sex== maleLevel] %>% nrow / nrow(o)
+
+        set(x, i = i, 'col_score', csc)
+        
+    }
+
+
+    x
+    
+}
 
 
 

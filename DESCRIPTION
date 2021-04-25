@@ -22,6 +22,7 @@ Suggests:
     testthat,
     knitr,
     rmarkdown,
+    doFuture
 LazyData: true
 Author: 
   Mihai Valcu, James Dale

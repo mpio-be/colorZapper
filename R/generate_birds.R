@@ -1,7 +1,7 @@
 
 
 #' Title generate birds
-#' Title generate n species (both sexes) with males (slightly) more colorful than females 
+#' Title generate n species (both sexes) with males (slightly) more colourful than females 
 #'
 #' @param n No of species
 #' @param body_parts one of: "crown", "forehead", "lore", "chin", "throat", "nape", "ear-coverts", "breast", "mantle",  "scapulars", "coverts", "alula", "flight-feathers", "flank", "back", "rump", "belly", "vent", "tail".  Default to all
@@ -22,7 +22,7 @@
 
 generateBirds <- function(n, dir = tempdir(), body_parts, res = 10) {
 		
-		x = BirdBodyParts
+		x = BirdBodyParts # from ./R/sysdata.rda
 		data.table::setDT(x)
 		
 		if(missing(body_parts) ) body_parts = setdiff(x$parts, c('feet', 'eye', 'bill'))

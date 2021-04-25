@@ -1,35 +1,35 @@
 #  https://github.com/Rdatatable/data.table/issues/850
 utils::globalVariables(c(
-	'.', 
-	'.N',
-	'a',
-	'B',
-	'bitmap',
-	'dist',
-	'female_col',
-	'G',
-	'head',
-	'hexCol',
-	'hf',
-	'hm',
-	'hsv',
-	'i',
-	'ID',
-	'k',
-	'k1',
-	'male_col',
-	'par',
-	'parts',
-	'path',
-	'R',
-	'rnorm',
-	'sf',
-	'sm',
-	'v',
-	'value',
-	'vf',
-	'vm'
-	))
+    '.', 
+    '.N',
+    'a',
+    'B',
+    'bitmap',
+    'dist',
+    'female_col',
+    'G',
+    'head',
+    'hexCol',
+    'hf',
+    'hm',
+    'hsv',
+    'i',
+    'ID',
+    'k',
+    'k1',
+    'male_col',
+    'par',
+    'parts',
+    'path',
+    'R',
+    'rnorm',
+    'sf',
+    'sm',
+    'v',
+    'value',
+    'vf',
+    'vm'
+))
 
 
 
@@ -40,7 +40,7 @@ NULL
 NULL
 #' @importFrom graphics     par locator  mtext  points plot
 NULL
-#' @importFrom utils        head flush.console  packageVersion
+#' @importFrom utils        head flush.console  packageVersion setTxtProgressBar  txtProgressBar
 NULL
 #' @importFrom stats        dist  rnorm
 NULL
@@ -49,11 +49,11 @@ NULL
 
 
 .onLoad <- function(libname, pkgname) {
-	
-	wd = getwd()
-	# packageStartupMessage( paste("Found colorZapper project", shQuote("foo"), "at", wd) )
-	
-	}
+    
+    wd = getwd()
+    # packageStartupMessage( paste("Found colorZapper project", shQuote("foo"), "at", wd) )
+    
+}
 
 #'  Color zapper.
 #' Color zapper.

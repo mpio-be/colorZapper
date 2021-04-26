@@ -2,12 +2,15 @@
 % Please edit documentation in R/2_setup.R
 \name{CZaddFiles}
 \alias{CZaddFiles}
+\alias{CZsetwd}
 \title{Associate images to a colorZapper file.}
 \usage{
 CZaddFiles(dir)
+
+CZsetwd(dir = getwd())
 }
 \arguments{
-\item{dir}{directory containing images}
+\item{dir}{directory containing images. When re-setting dir with CZsetwd() the default is the current working directory.}
 }
 \value{
 TRUE
@@ -16,14 +19,16 @@ TRUE
 Associate images to a colorZapper file.
 }
 \note{
-Duplicated files are dropped silently.
+CZaddFiles() can be run only once.
 }
 \examples{
 \dontrun{
 require(colorZapper)
 dir = system.file(package = "colorZapper", "sample")
-CZopen(path = tempfile() )
+p = tempfile() 
+CZopen(path = p)
 CZaddFiles(dir)
+CZsetwd()
 
 }
 }

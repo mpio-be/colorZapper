@@ -9,51 +9,53 @@ czopen <- function(path) {
   if( freshDB ) {
 
   # nfo
-    nfo = data.frame(
-      user = as.character(Sys.info()[["user"]]) ,
-      create = as.character(Sys.time()),
-      version = as.character(packageVersion("colorZapper")) )
+    nfo      = data.frame(
+      user    = as.character(Sys.info()[["user"]]) ,
+      create  = as.character(Sys.time()),
+      version = as.character(packageVersion("colorZapper"), 
+      basedir = NA) )
 
     dbExecute(con, 
       'CREATE TABLE "nfo" (
-        "user" VARCHAR, 
-        "create" DATETIME, 
-        "version" CHAR)') 
+          "user"   VARCHAR, 
+          "create"  DATETIME, 
+          "version" CHAR, 
+          "basedir" CHAR)') 
 
     dbWriteTable(con, "nfo", nfo, row.names = FALSE, append = TRUE)
 
   # files table 
     dbExecute(con, 
       'CREATE  TABLE files (
-        "path" VARCHAR, 
-        "id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL )')
+          "path" VARCHAR, 
+          "id" INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL )')
 
   # ROI
     dbExecute(con,'
       CREATE TABLE "ROI" (
-        "id" INTEGER NOT NULL , 
-        "wkt" TEXT NOT NULL , 
-        "mark" VARCHAR, 
-        "pk" INTEGER PRIMARY KEY  AUTOINCREMENT)
-        ')
+          "id" INTEGER NOT NULL , 
+          "wkt" TEXT NOT NULL , 
+          "mark" VARCHAR, 
+          "pk" INTEGER PRIMARY KEY  AUTOINCREMENT)
+          ')
 
   # ROI_RGB
     dbExecute(con,'
       CREATE TABLE "ROI_RGB" (
-        "R" float, 
-        "G" float, 
-        "B" float, 
-        "roi_pk" INTEGER NOT NULL   )
-        ')  
+          "R" float, 
+          "G" float, 
+          "B" float, 
+          "roi_pk" INTEGER NOT NULL   )
+          ')  
 
   # ALL_RGB
     dbExecute(con,'
       CREATE TABLE "ALL_RGB" (
-        "R" float, 
-        "G" float, 
-        "B" float, 
-        "all_pk" INTEGER NOT NULL   ) -- all_pk is the the id in the files table
-        ')
+          "R" float, 
+          "G" float, 
+          "B" float, 
+          "all_pk" INTEGER NOT NULL   ) -- all_pk is the the id in the files table
+          ')
 
 
   } 
@@ -62,7 +64,7 @@ czopen <- function(path) {
 }
 
 #' Open a colorZapper file.
-#' Open a colorZapper file.
+#' Setup a new colorZapper project or open an existing file.
 #' @export
 #' @examples
 #'\dontrun{
@@ -84,7 +86,7 @@ czIsValid <- function(con) {
   stopifnot(  dbIsValid(con) )
   
   true_format = list(
-    nfo     = c("user", "create", "version"), 
+    nfo     = c("user", "create", "version", "basedir"), 
     files   = c("path", "id"), 
     ROI     = c("id", "wkt", "mark", "pk"),
     ROI_RGB = c("R", "G", "B", "roi_pk"), 
@@ -99,7 +101,7 @@ czIsValid <- function(con) {
 
 
 #' Checks for an active colorZapper project.
-#' Checks for an active colorZapper project.
+#' Is there a valid colorZapper project open?
 #' @export
 colorZapper_file_active <- function() {
  if( inherits(getOption('cz.con'), "SQLiteConnection" ) && 

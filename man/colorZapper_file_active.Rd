@@ -3,11 +3,11 @@
 \name{colorZapper_file_active}
 \alias{colorZapper_file_active}
 \title{Checks for an active colorZapper project.
-Checks for an active colorZapper project.}
+Is there a valid colorZapper project open?}
 \usage{
 colorZapper_file_active()
 }
 \description{
 Checks for an active colorZapper project.
-Checks for an active colorZapper project.
+Is there a valid colorZapper project open?
 }

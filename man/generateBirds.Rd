@@ -3,7 +3,7 @@
 \name{generateBirds}
 \alias{generateBirds}
 \title{Title generate birds
-Title generate n species (both sexes) with males (slightly) more colorful than females}
+Title generate n species (both sexes) with males (slightly) more colourful than females}
 \usage{
 generateBirds(n, dir = tempdir(), body_parts, res = 10)
 }
@@ -21,7 +21,7 @@ dir
 }
 \description{
 Title generate birds
-Title generate n species (both sexes) with males (slightly) more colorful than females
+Title generate n species (both sexes) with males (slightly) more colourful than females
 }
 \examples{
 f = generateBirds(n = 10) 

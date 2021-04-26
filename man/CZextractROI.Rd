@@ -13,6 +13,9 @@ Extract data from regions of interest.
 }
 \examples{
 \dontrun{
- CZextractROI()
- }
+require(doFuture)
+registerDoFuture()
+plan(multisession)
+CZextractROI()
+}
 }

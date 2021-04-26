@@ -3,13 +3,13 @@
 \name{CZopen}
 \alias{CZopen}
 \title{Open a colorZapper file.
-Open a colorZapper file.}
+Setup a new colorZapper project or open an existing file.}
 \usage{
 CZopen(path)
 }
 \description{
 Open a colorZapper file.
-Open a colorZapper file.
+Setup a new colorZapper project or open an existing file.
 }
 \examples{
 \dontrun{

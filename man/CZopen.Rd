@@ -5,7 +5,12 @@
 \title{Open a colorZapper file.
 Setup a new colorZapper project or open an existing file.}
 \usage{
-CZopen(path)
+CZopen(path, overwrite = FALSE)
+}
+\arguments{
+\item{path}{file path.}
+
+\item{overwrite}{when TRUE, start from scratch; default to FALSE.}
 }
 \description{
 Open a colorZapper file.

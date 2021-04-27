@@ -29,7 +29,9 @@ CZextractROI <- function(parallel = FALSE) {
     d = dbGetQuery(getOption('cz.con'), 
         "SELECT distinct f.id, f.path, w.pk, w.WKT FROM
         files f JOIN ROI w on f.ID = w.ID   ")
-    
+    basedir = dbGetQuery(getOption('cz.con'), "SELECT basedir from nfo")$basedir
+    d$path = paste(basedir, d$path, sep = '/')
+
     dl = split(d, d$id)
     
 
@@ -97,6 +99,9 @@ CZextractALL <- function(parallel = FALSE) {
 
     # data
     d = dbGetQuery(getOption('cz.con'), "SELECT * from files")
+    basedir = dbGetQuery(getOption('cz.con'), "SELECT basedir from nfo")$basedir
+    d$path = paste(basedir, d$path, sep = '/')
+
     dl = split(d, d$id)
     
 

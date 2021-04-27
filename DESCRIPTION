@@ -19,7 +19,7 @@ Imports:
   stringr,
   scales
 Suggests:
-    testthat,
+    testthat (>= 3.0.0),
     knitr,
     rmarkdown,
     doFuture
@@ -31,3 +31,4 @@ Maintainer:
 License: GPL-3
 Encoding: UTF-8
 RoxygenNote: 7.1.1
+Config/testthat/edition: 3

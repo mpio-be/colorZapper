@@ -66,6 +66,8 @@ czopen <- function(path) {
 #' Open a colorZapper file.
 #' Setup a new colorZapper project or open an existing file.
 #' @export
+#' @param path      file path.
+#' @param overwrite when TRUE, start from scratch; default to FALSE.
 #' @examples
 #'\dontrun{
 #' require(colorZapper)
@@ -73,8 +75,10 @@ czopen <- function(path) {
 #' CZopen(path = tempfile() )
 #' 
 #' }
-CZopen <- function(path) {
+
+CZopen <- function(path, overwrite = FALSE) {
   invisible(suppressWarnings(try(dbDisconnect(getOption('cz.con')), silent = TRUE)))
+  if(overwrite) file.remove(path)
   options( cz.con = czopen(path = path) )
   return(colorZapper_file_active()  )
   }

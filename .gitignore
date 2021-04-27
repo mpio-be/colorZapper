@@ -1,15 +1,16 @@
+doc
+Meta
+inst/doc
 *-Ex.R
 *.knit.md
 *.utf8.md
 .httr-oauth
 .Rapp.history
-.Rbuildignore
 .RData
 .Rhistory
 .Rproj
 .Rproj.user
 .Rproj.user/
-.sublime-workspace
 /*.Rcheck/
 /*.tar.gz
 /*_cache/
@@ -17,5 +18,6 @@
 vignettes/*.html
 vignettes/*.pdf
 vignettes/*.png
-/colorZapper.sublime-workspace
-*.sublime-workspace
+/README.html
+build.sh
+colorZapper.sublime-workspace

@@ -2,8 +2,9 @@
 #' Associate images to a colorZapper file.
 #' @param dir directory containing images. When re-setting dir with CZsetwd() the default is the current working directory.
 #' @return TRUE
-#' @export
 #' @note CZaddFiles() can be run only once. 
+#' @export
+#' @importFrom RSQLite dbGetQuery 
 #' @examples
 #'\dontrun{
 #' require(colorZapper)
@@ -28,15 +29,11 @@ CZaddFiles <- function(dir) {
     
     dbWriteTable(getOption('cz.con'), "files", f, row.names = FALSE, append = TRUE)
 
-
-    
-    # remove duplicates
-    dbExecute(getOption('cz.con'), 
-        "DELETE   from files where  id not in
-            (select  min(id) from files group by path)")
     
     n = dbGetQuery(getOption('cz.con'), "select count(*) from files")[1,1]
     message( paste(n, "image files") )
+
+    n
     
 }
     

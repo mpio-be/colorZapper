@@ -35,13 +35,9 @@ utils::globalVariables(c(
 
 
 
-#' @import methods RSQLite  doParallel  foreach  data.table  magrittr  raster  rgeos exactextractr  sf  stringr  scales
-NULL
 #' @importFrom grDevices    adjustcolor  dev.off  pdf  rgb  rgb2hsv bitmap hsv
 NULL
 #' @importFrom graphics     par locator  mtext  points plot
-NULL
-#' @importFrom utils        head flush.console  packageVersion setTxtProgressBar  txtProgressBar
 NULL
 #' @importFrom stats        dist  rnorm
 NULL
@@ -56,8 +52,8 @@ NULL
     
 }
 
-#'  Color zapper.
 #' Color zapper.
+#' Color zapper: color extraction utilities.
 #'
 #' @author
 #' Mihai Valcu \email{valcu@@orn.mpg.de},
@@ -66,7 +62,7 @@ NULL
 #' Maintainer: Mihai Valcu \email{valcu@@orn.mpg.de}
 #' @name colorZapper
 #' @docType package
-
+NULL
 
 #' @name BirdBodyParts
 #' @title A dataset containing body parts polygons of a generic songbird.  

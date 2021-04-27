@@ -2,9 +2,7 @@
 #' Extract data from regions of interest.
 #' @export
 
-#' @importFrom raster         brick
 #' @importFrom exactextractr  exact_extract
-#' @importFrom rgeos          readWKT
 #' @importFrom data.table     data.table rbindlist setcolorder setnames :=
 #' @importFrom foreach        %dopar%  foreach
 
@@ -170,9 +168,9 @@ CZrm <- function(fileNam) {
 
     dbExecute(getOption('cz.con'), "VACUUM") 
 
-
-
 }
+
+
 
 
 

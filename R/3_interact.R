@@ -4,6 +4,7 @@
 #' @importFrom RSQLite dbGetQuery
 #' @importFrom raster plotRGB nbands brick
 #' @importFrom rgeos plot readWKT
+#' @importFrom utils        head flush.console  packageVersion setTxtProgressBar  txtProgressBar
 #' @examples \dontrun{
 #' require(colorZapper)
 #' dir = system.file(package = "colorZapper", "sample")
@@ -40,7 +41,7 @@ setMethod("CZdefine",
 
 
 
-            raster::plotRGB (bi, maxpixels = Inf)
+            plotRGB (bi, maxpixels = Inf)
 
             for(j in 1:length(marks) ) {
                 v = locator(type = "p", n = points, ...) 
@@ -82,12 +83,12 @@ setMethod("CZdefine",
         for(i in 1:nrow(f) ) {
             bi = brick(f[i, 'path'] )
 
-            if( raster::nbands(bi) != 3) 
+            if( nbands(bi) != 3) 
                 warning(basename(f[i, 'path']), ' has ', nbands(bi), ' bands but 3 are expected.')
 
 
             marksCol = as.numeric(factor(marks))
-            raster::plotRGB (bi, maxpixels = Inf)
+            plotRGB (bi, maxpixels = Inf)
 
             for(j in 1:length(marks) ) {
 
@@ -123,7 +124,8 @@ setMethod("CZdefine",
     )
 
 #' Check out defined ROI-s
-#' Check out defined ROI-s
+#' Plot the defined ROI-s on the original image.
+#' @note Warning: this can take a long time for many images.
 #' @export
 #' @examples
 #' \dontrun{

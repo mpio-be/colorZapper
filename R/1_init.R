@@ -65,9 +65,10 @@ czopen <- function(path) {
 
 #' Open a colorZapper file.
 #' Setup a new colorZapper project or open an existing file.
-#' @export
 #' @param path      file path.
 #' @param overwrite when TRUE, start from scratch; default to FALSE.
+#' @export
+#' @importFrom RSQLite dbIsValid dbExecute dbConnect dbDriver initExtension dbWriteTable dbListTables dbListFields
 #' @examples
 #'\dontrun{
 #' require(colorZapper)
@@ -82,8 +83,6 @@ CZopen <- function(path, overwrite = FALSE) {
   options( cz.con = czopen(path = path) )
   return(colorZapper_file_active()  )
   }
-
-
 
 czIsValid <- function(con) { 
 

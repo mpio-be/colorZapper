@@ -3,22 +3,11 @@
 \docType{package}
 \name{colorZapper}
 \alias{colorZapper}
-\title{A dataset containing body parts polygons of a generic songbird.}
-\format{
-A data frame with 25 rows and 2 variables:
-\describe{
-  \item{parts}{body part: crown, forehead, ..., feet, tail}
-  \item{geometry}{polygon geometry, sf::sfc class}
-}
-}
-\description{
-Color zapper.
-Color zapper.
-}
+\title{Color zapper.
+Color zapper: color extraction utilities.}
 \author{
 Mihai Valcu \email{valcu@orn.mpg.de},
 James Dale \email{J.Dale@massey.ac.nz}
 
 Maintainer: Mihai Valcu \email{valcu@orn.mpg.de}
 }
-\keyword{data}

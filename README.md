@@ -1,3 +1,11 @@
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/mpio-be/colorZapper/workflows/R-CMD-check/badge.svg)](https://github.com/mpio-be/colorZapper/actions)
+
+
+<!-- badges: end -->
+
+
 
 colorZapper
 ===========

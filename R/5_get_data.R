@@ -1,22 +1,17 @@
 #' db as a list of data.frame-s
 #' @export
-#' @importFrom magrittr %>%
-#' @examples
-#' \dontrun{
-#'  db2list(con)
-#'  }
 db2list <- function(con) {
     tnams = dbGetQuery(con, "SELECT name FROM sqlite_master WHERE type='table'")
     sapply(tnams$name, function(x)  dbGetQuery(con, paste("SELECT * FROM", x) ) )
 }
 
 #' Show db status
-#' Show db status
+#' Returns a data.frame containing the status of the current CZ project. 
 #' @export
 #' @examples
-#' \dontrun{
+#'  CZopen_example()
 #'  CZshowStatus()
-#'  }
+
 CZshowStatus <- function() {
     stopifnot( colorZapper_file_active())
     d = dbGetQuery(getOption('cz.con'), "
@@ -37,6 +32,8 @@ CZshowStatus <- function() {
 
 #' colorZapper data
 #' Fetch colorZapper RGB data
+#' @param what 'ROI' (gets the data of ROI-s defined interactively) 
+#'              or 'ALL' (extracts the color of from all images.)
 #' @export
 #' @examples
 #'  
@@ -48,7 +45,7 @@ CZshowStatus <- function() {
 #' d = CZdata()
 #' 
 #'  }
-CZdata <- function(what = c('ROI', 'ALL')) {
+CZdata <- function(what) {
     stopifnot( colorZapper_file_active())
 
     if(what == 'ROI')

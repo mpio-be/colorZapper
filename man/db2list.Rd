@@ -9,8 +9,3 @@ db2list(con)
 \description{
 db as a list of data.frame-s
 }
-\examples{
-\dontrun{
- db2list(con)
- }
-}

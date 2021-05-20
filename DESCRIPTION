@@ -10,7 +10,6 @@ Imports:
   RSQLite,
   doParallel,
   foreach,
-  doParallel,
   data.table,
   magrittr,
   raster,

@@ -3,16 +3,15 @@
 \name{CZshowStatus}
 \alias{CZshowStatus}
 \title{Show db status
-Show db status}
+Returns a data.frame containing the status of the current CZ project.}
 \usage{
 CZshowStatus()
 }
 \description{
 Show db status
-Show db status
+Returns a data.frame containing the status of the current CZ project.
 }
 \examples{
-\dontrun{
+ CZopen_example()
  CZshowStatus()
- }
 }

@@ -13,7 +13,7 @@ Extract data from regions of interest.
 }
 \examples{
 \dontrun{
-registerDoParallel(2)
+registerDoParallel(1) #change from 1 to several (or many) clusters.
 
 CZopen_example()
 CZextractROI()

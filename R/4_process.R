@@ -5,12 +5,12 @@
 #' @importFrom exactextractr  exact_extract
 #' @importFrom data.table     data.table rbindlist setcolorder setnames :=
 #' @importFrom foreach        %dopar%  foreach
-#' @importFrom doParallel     registerDoParallel
+#' @importFrom doParallel     registerDoParallel stopImplicitCluster
 #' @importFrom sf             st_as_sf
 
 #' @examples 
 #' \dontrun{
-#' registerDoParallel(2)
+#' registerDoParallel(1) #change from 1 to several (or many) clusters.
 #' 
 #' CZopen_example()
 #' CZextractROI()

@@ -5,7 +5,11 @@
 \title{colorZapper data
 Fetch colorZapper RGB data}
 \usage{
-CZdata(what = c("ROI", "ALL"))
+CZdata(what)
+}
+\arguments{
+\item{what}{'ROI' (gets the data of ROI-s defined interactively) 
+or 'ALL' (extracts the color of from all images.)}
 }
 \description{
 colorZapper data

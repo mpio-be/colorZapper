@@ -13,9 +13,11 @@ Extract data from regions of interest.
 }
 \examples{
 \dontrun{
-require(doFuture)
-registerDoFuture()
-plan(multisession)
+registerDoParallel(2)
+
+CZopen_example()
 CZextractROI()
+
+stopImplicitCluster()
 }
 }

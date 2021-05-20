@@ -3,16 +3,11 @@
 \name{CZdata}
 \alias{CZdata}
 \title{colorZapper data
-colorZapper data}
+Fetch colorZapper RGB data}
 \usage{
 CZdata(what = c("ROI", "ALL"))
 }
 \description{
 colorZapper data
-colorZapper data
-}
-\examples{
-\dontrun{
- CZdata(what = 'ROI')
- }
+Fetch colorZapper RGB data
 }

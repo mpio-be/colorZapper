@@ -1,10 +1,7 @@
-[![Build Status](https://travis-ci.org/mpio-be/colorZapper.svg?branch=master)](https://travis-ci.org/mpio-be/colorZapper)
-[![CRAN status](https://www.r-pkg.org/badges/version/colorZapper)](https://cran.r-project.org/package=colorZapper)
-
 
 colorZapper
 ===========
-Extract colour from photos interactively.
+Extract colour from user defined areas.
 
 ```R
 remotes::install_github("mpio-be/colorZapper")
@@ -46,15 +43,11 @@ CZdefine(polygons = 1, marks = c("wing", "tail"), what = 3 )
 
 Extract RGB values from Regions of Interest
 ```R
-CZextractROI(parallel = FALSE)
+CZextractROI()
 
 # fetch data
 d = CZdata(what = 'ROI')
 
-scales::show_col(d$hexCol)
-
-#check defined regions
- CZcheck()
 ```
 
 Extract RGB values from the entire image (batch mode).

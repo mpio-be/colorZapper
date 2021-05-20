@@ -22,13 +22,10 @@ Associate images to a colorZapper file.
 CZaddFiles() can be run only once.
 }
 \examples{
-\dontrun{
 require(colorZapper)
 dir = system.file(package = "colorZapper", "sample")
 p = tempfile() 
 CZopen(path = p)
 CZaddFiles(dir)
 CZsetwd()
-
-}
 }

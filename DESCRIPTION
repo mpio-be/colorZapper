@@ -10,6 +10,7 @@ Imports:
   RSQLite,
   doParallel,
   foreach,
+  doParallel,
   data.table,
   magrittr,
   raster,
@@ -21,8 +22,7 @@ Imports:
 Suggests:
     testthat (>= 3.0.0),
     knitr,
-    rmarkdown,
-    doFuture
+    rmarkdown
 LazyData: true
 Author: 
   Mihai Valcu, James Dale

@@ -36,11 +36,17 @@ CZshowStatus <- function() {
 } 
 
 #' colorZapper data
-#' colorZapper data
+#' Fetch colorZapper RGB data
 #' @export
 #' @examples
-#' \dontrun{
-#'  CZdata(what = 'ROI')
+#'  
+#' registerDoParallel(2)
+#' CZopen_example()
+#' CZextractROI()
+#' CZextractALL()
+#' stopImplicitCluster()
+#' d = CZdata()
+#' 
 #'  }
 CZdata <- function(what = c('ROI', 'ALL')) {
     stopifnot( colorZapper_file_active())
@@ -53,11 +59,7 @@ CZdata <- function(what = c('ROI', 'ALL')) {
         sql = "SELECT R, G, B, f.id, f.path FROM ALL_RGB a 
     JOIN files f  ON f.id = a.all_pk"
 
-    d = dbGetQuery(getOption('cz.con'), sql) %>%  data.table
-
-    d[!is.na(R), hexCol := rgb(R, G, B, maxColorValue = 255) ]
-    
-    cbind(d, data.frame(t( rgb2hsv(  t(d[, c("R", "G", "B")])  ))) )
+    dbGetQuery(getOption('cz.con'), sql) %>%  data.table
 
 
 }

@@ -113,6 +113,25 @@ colorZapper_file_active <- function() {
   }
 
 
+#' Open the example colorZapper file.
+#' The file open by CZopen_example() has the interactive ROI-s defined; it is used for testing the non-interactive functions. 
+#' @export
+#' @examples
+#' require(colorZapper)
+#' CZopen_example()
+
+CZopen_example <- function() {
+  tf = tempfile()
+  file.copy(system.file('cz_example', 'colorZapper.sqlite', package = 'colorZapper'), tf)
+  CZopen(tf)
+  CZsetwd( system.file( 'sample', package = 'colorZapper') )
+
+  message('The example file is here: ', shQuote(tf))
+
+  }
+
+
+
 
 
 

@@ -14,14 +14,19 @@ test_that("Image file info is loaded correctly ", {
     })
 
 
-
-
-
 test_that("Base directory can be changed", {
     dir = system.file(package = "colorZapper", "sample")
     p = tempfile() 
     CZopen(path = p)
     CZsetwd('/temp/')
+
+    })
+
+
+
+test_that("CZopen_example works", {
+    CZopen_example()
+    expect_true(colorZapper_file_active() )
 
     })
 

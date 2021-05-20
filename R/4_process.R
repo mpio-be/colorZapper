@@ -5,13 +5,17 @@
 #' @importFrom exactextractr  exact_extract
 #' @importFrom data.table     data.table rbindlist setcolorder setnames :=
 #' @importFrom foreach        %dopar%  foreach
+#' @importFrom doParallel     registerDoParallel
+#' @importFrom sf             st_as_sf
 
 #' @examples 
 #' \dontrun{
-#' require(doFuture)
-#' registerDoFuture()
-#' plan(multisession)
+#' registerDoParallel(2)
+#' 
+#' CZopen_example()
 #' CZextractROI()
+#' 
+#' stopImplicitCluster()
 #' }
 
 CZextractROI <- function(parallel = FALSE) {

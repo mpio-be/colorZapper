@@ -3,13 +3,16 @@
 \name{CZcheck}
 \alias{CZcheck}
 \title{Check out defined ROI-s
-Check out defined ROI-s}
+Plot the defined ROI-s on the original image.}
 \usage{
 CZcheck(file = tempfile(fileext = ".pdf"))
 }
 \description{
 Check out defined ROI-s
-Check out defined ROI-s
+Plot the defined ROI-s on the original image.
+}
+\note{
+Warning: this can take a long time for many images.
 }
 \examples{
 \dontrun{

@@ -6,15 +6,13 @@
 #' @export
 #' @importFrom RSQLite dbGetQuery 
 #' @examples
-#'\dontrun{
 #' require(colorZapper)
 #' dir = system.file(package = "colorZapper", "sample")
 #' p = tempfile() 
 #' CZopen(path = p)
 #' CZaddFiles(dir)
 #' CZsetwd()
-#' 
-#' }
+
 CZaddFiles <- function(dir) {
     stopifnot( colorZapper_file_active())
     

@@ -2,7 +2,7 @@ Package: colorZapper
 Type: Package
 Title: Color extraction utilities
 Description: Functions to extract color values from user-defined regions.
-Version: 1.4.7
+Version: 1.4.8
 Depends: 
   R (>= 3.0.0)
 Imports:

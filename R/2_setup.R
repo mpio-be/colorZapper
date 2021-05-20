@@ -1,6 +1,7 @@
 
 #' Associate images to a colorZapper file.
-#' @param dir directory containing images. When re-setting dir with CZsetwd() the default is the current working directory.
+#' @param dir directory containing images. When re-setting dir with CZsetwd() 
+#'            the default is the current working directory.
 #' @return TRUE
 #' @note CZaddFiles() can be run only once. 
 #' @export

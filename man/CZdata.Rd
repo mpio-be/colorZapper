@@ -15,3 +15,13 @@ or 'ALL' (extracts the color of from all images.)}
 colorZapper data
 Fetch colorZapper RGB data
 }
+\examples{
+require(doParallel)
+registerDoParallel(1)
+CZopen_example()
+CZextractROI()
+CZextractALL()
+stopImplicitCluster()
+d = CZdata()
+
+}

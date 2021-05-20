@@ -7,12 +7,15 @@ Plot the defined ROI-s on the original image.}
 \usage{
 CZcheck(file = tempfile(fileext = ".pdf"))
 }
+\arguments{
+\item{file}{destination pdf file.}
+}
 \description{
 Check out defined ROI-s
 Plot the defined ROI-s on the original image.
 }
 \note{
-Warning: this can take a long time for many images.
+Warning! this can take a long time for many images.
 }
 \examples{
 \dontrun{

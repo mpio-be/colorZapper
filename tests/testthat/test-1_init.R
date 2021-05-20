@@ -11,7 +11,7 @@ test_that("Project exists in .GlobalEnv. ", {
 test_that("A corrupt project is correctly identified. ", {
     cz = tempfile() 
     CZopen(path = cz)
-    DBI::dbExecute(getOption('cz.con'), 'DROP table nfo')
+    dbExecute(getOption('cz.con'), 'DROP table nfo')
     expect_false( colorZapper_file_active() )
     })
 

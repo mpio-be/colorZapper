@@ -1,6 +1,5 @@
 
 
-#  https://github.com/Rdatatable/data.table/issues/850
 utils::globalVariables(c(
     '.', 
     '.N',
@@ -30,7 +29,8 @@ utils::globalVariables(c(
     'v',
     'value',
     'vf',
-    'vm'
+    'vm',
+    'coverage_fraction'
 ))
 
 
@@ -45,15 +45,9 @@ NULL
 
 
 
-.onLoad <- function(libname, pkgname) {
-    
-    wd = getwd()
-    # packageStartupMessage( paste("Found colorZapper project", shQuote("foo"), "at", wd) )
-    
-}
 
-#' Color zapper.
-#' Color zapper: color extraction utilities.
+#' colorZapper.
+#' @description Colour extraction utilities.
 #'
 #' @author
 #' Mihai Valcu \email{valcu@@orn.mpg.de},
@@ -64,13 +58,3 @@ NULL
 #' @docType package
 NULL
 
-#' @name BirdBodyParts
-#' @title A dataset containing body parts polygons of a generic songbird.  
-#' @docType data
-#' @format A data frame with 25 rows and 2 variables:
-#' \describe{
-#'   \item{parts}{body part: crown, forehead, ..., feet, tail}
-#'   \item{geometry}{polygon geometry, sf::sfc class}
-#' }
-#' @keywords data
-NULL

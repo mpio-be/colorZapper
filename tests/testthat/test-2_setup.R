@@ -8,7 +8,7 @@ test_that("Image file info is loaded correctly ", {
     
     expect_equal( CZaddFiles(dir), length(list.files(dir, pattern = '.jpg')) )
 
-    czwd = DBI::dbGetQuery(getOption('cz.con'), 'SELECT basedir from nfo')$basedir
+    czwd = dbGetQuery(getOption('cz.con'), 'SELECT basedir from nfo')$basedir
     expect_equal(czwd, dir)
 
     })

@@ -7,6 +7,9 @@ Remove entries associated with given images}
 \usage{
 CZrm(fileNam)
 }
+\arguments{
+\item{fileNam}{File name whose corresponding entries will be removed from the active project.}
+}
 \description{
 Remove entries
 Remove entries associated with given images

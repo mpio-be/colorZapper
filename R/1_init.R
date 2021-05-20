@@ -68,7 +68,8 @@ czopen <- function(path) {
 #' @param path      file path.
 #' @param overwrite when TRUE, start from scratch; default to FALSE.
 #' @export
-#' @importFrom RSQLite dbIsValid dbExecute dbConnect dbDriver initExtension dbWriteTable dbListTables dbListFields
+#' @importFrom RSQLite dbIsValid dbExecute dbConnect dbDisconnect dbDriver 
+#'             initExtension dbWriteTable dbListTables dbListFields
 #' @examples
 #'\dontrun{
 #' require(colorZapper)
@@ -124,7 +125,9 @@ CZopen_example <- function() {
   tf = tempfile()
   file.copy(system.file('cz_example', 'colorZapper.sqlite', package = 'colorZapper'), tf)
   CZopen(tf)
-  CZsetwd( system.file( 'sample', package = 'colorZapper') )
+  file.copy(system.file( 'sample', package = 'colorZapper'), tempdir(),recursive =TRUE )
+
+  CZsetwd( paste(tempdir(), 'sample', sep = .Platform$file.sep) )
 
   message('The example file is here: ', shQuote(tf))
 

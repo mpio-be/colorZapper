@@ -1,23 +1,29 @@
 #' Define regions of interest.
-#' Interactively define points or polygons using mouse clicks.
+#' Interactively define ROI-s, points or polygons, using mouse clicks.
+#' @param points integer. Number of points to define.
+#' @param polygons integer. Number of polygons to define.
+#' @param marks character vector; one or more names describing the areas to be defined.
+#' @param what  integer. which image should be scored again. Use CZshowStatus() to identify the file. 
+#' @param ... arguments passed to locator().
 #' @export
 #' @importFrom RSQLite dbGetQuery
 #' @importFrom raster plotRGB nbands brick
 #' @importFrom rgeos plot readWKT
-#' @importFrom utils        head flush.console  packageVersion setTxtProgressBar  txtProgressBar
-#' @examples \dontrun{
+#' @importFrom utils  head flush.console  packageVersion setTxtProgressBar  txtProgressBar
+#' @examples 
+#' \dontrun{
 #' require(colorZapper)
 #' dir = system.file(package = "colorZapper", "sample")
 #' CZopen(path = tempfile() )
 #' CZaddFiles(dir)
-#' CZdefine(points = 1)
+#' CZdefine(points = 1, marks = c('wing', 'tail'))
 #' }
-setGeneric("CZdefine", function(points, polygons,  ...) standardGeneric("CZdefine") )
+setGeneric("CZdefine", function(points, polygons, ...) standardGeneric("CZdefine") )
 
 # points
 #' @export
-setMethod("CZdefine",
-    signature = c(points = "numeric", polygons = "missing"),
+#' @rdname CZdefine
+setMethod("CZdefine",signature = c(points = "numeric", polygons = "missing"),
     definition = function(points , marks = NA, what, ...) {
         stopifnot( colorZapper_file_active() )
 
@@ -64,8 +70,8 @@ setMethod("CZdefine",
 
 # polygons
 #' @export
-setMethod("CZdefine",
-    signature = c(points = "missing", polygons = "numeric"),
+#' @rdname CZdefine
+setMethod("CZdefine",signature = c(points = "missing", polygons = "numeric"),
     definition = function(polygons , marks = NA, what, ...) {
         stopifnot( colorZapper_file_active() )
 
@@ -125,7 +131,8 @@ setMethod("CZdefine",
 
 #' Check out defined ROI-s
 #' Plot the defined ROI-s on the original image.
-#' @note Warning: this can take a long time for many images.
+#' @param file destination pdf file.
+#' @note Warning! this can take a long time for many images.
 #' @export
 #' @examples
 #' \dontrun{

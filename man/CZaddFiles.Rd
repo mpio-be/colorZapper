@@ -10,7 +10,8 @@ CZaddFiles(dir)
 CZsetwd(dir = getwd())
 }
 \arguments{
-\item{dir}{directory containing images. When re-setting dir with CZsetwd() the default is the current working directory.}
+\item{dir}{directory containing images. When re-setting dir with CZsetwd() 
+the default is the current working directory.}
 }
 \value{
 TRUE

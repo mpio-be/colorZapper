@@ -1,4 +1,5 @@
 #' db as a list of data.frame-s
+#' @param con sqlite connection.
 #' @export
 db2list <- function(con) {
     tnams = dbGetQuery(con, "SELECT name FROM sqlite_master WHERE type='table'")
@@ -9,8 +10,8 @@ db2list <- function(con) {
 #' Returns a data.frame containing the status of the current CZ project. 
 #' @export
 #' @examples
-#'  CZopen_example()
-#'  CZshowStatus()
+#' CZopen_example()
+#' CZshowStatus()
 
 CZshowStatus <- function() {
     stopifnot( colorZapper_file_active())
@@ -36,15 +37,14 @@ CZshowStatus <- function() {
 #'              or 'ALL' (extracts the color of from all images.)
 #' @export
 #' @examples
-#'  
-#' registerDoParallel(2)
+#' require(doParallel)
+#' registerDoParallel(1)
 #' CZopen_example()
 #' CZextractROI()
 #' CZextractALL()
 #' stopImplicitCluster()
 #' d = CZdata()
 #' 
-#'  }
 CZdata <- function(what) {
     stopifnot( colorZapper_file_active())
 

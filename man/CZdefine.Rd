@@ -2,14 +2,31 @@
 % Please edit documentation in R/3_interact.R
 \name{CZdefine}
 \alias{CZdefine}
+\alias{CZdefine,numeric,missing-method}
+\alias{CZdefine,missing,numeric-method}
 \title{Define regions of interest.
-Interactively define points or polygons using mouse clicks.}
+Interactively define ROI-s, points or polygons, using mouse clicks.}
 \usage{
 CZdefine(points, polygons, ...)
+
+\S4method{CZdefine}{numeric,missing}(points, marks = NA, what, ...)
+
+\S4method{CZdefine}{missing,numeric}(polygons, marks = NA, what, ...)
+}
+\arguments{
+\item{points}{integer. Number of points to define.}
+
+\item{polygons}{integer. Number of polygons to define.}
+
+\item{...}{arguments passed to locator().}
+
+\item{marks}{character vector; one or more names describing the areas to be defined.}
+
+\item{what}{integer. which image should be scored again. Use CZshowStatus() to identify the file.}
 }
 \description{
 Define regions of interest.
-Interactively define points or polygons using mouse clicks.
+Interactively define ROI-s, points or polygons, using mouse clicks.
 }
 \examples{
 \dontrun{
@@ -17,6 +34,6 @@ require(colorZapper)
 dir = system.file(package = "colorZapper", "sample")
 CZopen(path = tempfile() )
 CZaddFiles(dir)
-CZdefine(points = 1)
+CZdefine(points = 1, marks = c('wing', 'tail'))
 }
 }

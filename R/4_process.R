@@ -1,7 +1,6 @@
 #' Extract data
 #' Extract data from regions of interest.
 #' @export
-
 #' @importFrom exactextractr  exact_extract
 #' @importFrom data.table     data.table rbindlist setcolorder setnames :=
 #' @importFrom foreach        %dopar%  foreach
@@ -18,7 +17,7 @@
 #' stopImplicitCluster()
 #' }
 
-CZextractROI <- function(parallel = FALSE) {
+CZextractROI <- function() {
     stopifnot( colorZapper_file_active())
     
     dbExecute(getOption('cz.con'), "DELETE FROM ROI_RGB")
@@ -42,8 +41,10 @@ CZextractROI <- function(parallel = FALSE) {
         print(i)
         cat(i, ',', sep = '', file = pb, append = TRUE)
 
+        pathi = dl[[i]]$path[1]
+        if(!file.exists(pathi)) warning(pathi, 'does not exist.')
 
-        ri = brick (  dl[[i]]$path[1]  ) 
+        ri = brick (  pathi  ) 
         
         wi = lapply(dl[[i]]$wkt,  rgeos::readWKT)
         
@@ -90,7 +91,7 @@ CZextractROI <- function(parallel = FALSE) {
 #' \dontrun{
 #'  CZextractALL()
 #'  }
-CZextractALL <- function(parallel = FALSE) {
+CZextractALL <- function() {
     stopifnot( colorZapper_file_active())
     
     dbExecute(getOption('cz.con'), "DELETE FROM ALL_RGB")
@@ -112,7 +113,10 @@ CZextractALL <- function(parallel = FALSE) {
         print(i)
         cat(i, ',', sep = '', file = pb, append = TRUE)
 
-        ri = brick (  dl[[i]]$path[1]  ) 
+        pathi = dl[[i]]$path[1]
+        if(!file.exists(pathi)) warning(pathi, 'does not exist.')       
+
+        ri = brick (  pathi ) 
         o = data.table(ri[])
         o[, path := dl[[i]]$id[1] ]
         o
@@ -144,6 +148,8 @@ CZextractALL <- function(parallel = FALSE) {
 
 #' Remove entries
 #' Remove entries associated with given images
+#' @param fileNam File name whose corresponding entries will be removed from the active project.
+#' @importFrom magrittr %>%
 #' @export
 
 CZrm <- function(fileNam) {

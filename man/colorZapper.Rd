@@ -3,8 +3,10 @@
 \docType{package}
 \name{colorZapper}
 \alias{colorZapper}
-\title{Color zapper.
-Color zapper: color extraction utilities.}
+\title{colorZapper.}
+\description{
+Colour extraction utilities.
+}
 \author{
 Mihai Valcu \email{valcu@orn.mpg.de},
 James Dale \email{J.Dale@massey.ac.nz}

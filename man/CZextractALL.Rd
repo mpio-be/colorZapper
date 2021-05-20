@@ -5,7 +5,7 @@
 \title{Extract data
 Extract data from the entire image}
 \usage{
-CZextractALL(parallel = FALSE)
+CZextractALL()
 }
 \description{
 Extract data

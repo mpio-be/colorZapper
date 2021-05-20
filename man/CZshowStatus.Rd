@@ -12,6 +12,6 @@ Show db status
 Returns a data.frame containing the status of the current CZ project.
 }
 \examples{
- CZopen_example()
- CZshowStatus()
+CZopen_example()
+CZshowStatus()
 }

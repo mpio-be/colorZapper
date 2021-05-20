@@ -6,6 +6,9 @@
 \usage{
 db2list(con)
 }
+\arguments{
+\item{con}{sqlite connection.}
+}
 \description{
 db as a list of data.frame-s
 }

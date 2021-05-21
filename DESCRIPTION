@@ -13,6 +13,7 @@ Imports:
   data.table,
   magrittr,
   raster,
+  rgdal,
   exactextractr,
   rgeos,
   sf,

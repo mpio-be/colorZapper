@@ -1,5 +1,5 @@
 
-
+require(rgdal)
 
 test_that("Image file info is loaded correctly ", {
     dir = system.file(package = "colorZapper", "sample")
@@ -25,8 +25,9 @@ test_that("Base directory can be changed", {
 
 
 test_that("CZopen_example works", {
-    CZopen_example()
+    f = CZopen_example()
     expect_true(colorZapper_file_active() )
+    expect_true(file.exists(f) )
 
     })
 

@@ -125,11 +125,10 @@ CZopen_example <- function() {
   tf = tempfile()
   file.copy(system.file('cz_example', 'colorZapper.sqlite', package = 'colorZapper'), tf)
   CZopen(tf)
-  file.copy(system.file( 'sample', package = 'colorZapper'), tempdir(),recursive =TRUE )
 
-  CZsetwd( paste(tempdir(), 'sample', sep = .Platform$file.sep) )
+  CZsetwd(system.file( 'sample', package = 'colorZapper'))
 
-  message('The example file is here: ', shQuote(tf))
+  invisible(tf)
 
   }
 

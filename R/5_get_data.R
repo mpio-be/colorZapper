@@ -43,7 +43,8 @@ CZshowStatus <- function() {
 #' CZextractROI()
 #' CZextractALL()
 #' stopImplicitCluster()
-#' d = CZdata()
+#' d = CZdata(what= 'ROI')
+#' d = CZdata(what= 'ALL')
 #' 
 CZdata <- function(what) {
     stopifnot( colorZapper_file_active())

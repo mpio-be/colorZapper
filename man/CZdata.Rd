@@ -22,6 +22,7 @@ CZopen_example()
 CZextractROI()
 CZextractALL()
 stopImplicitCluster()
-d = CZdata()
+d = CZdata(what= 'ROI')
+d = CZdata(what= 'ALL')
 
 }

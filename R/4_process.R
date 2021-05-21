@@ -2,6 +2,7 @@
 #' Extract data from regions of interest.
 #' @export
 #' @importFrom exactextractr  exact_extract
+#' @importFrom raster         brick
 #' @importFrom data.table     data.table rbindlist setcolorder setnames :=
 #' @importFrom foreach        %dopar%  foreach
 #' @importFrom doParallel     registerDoParallel stopImplicitCluster
@@ -36,15 +37,14 @@ CZextractROI <- function() {
     dl = split(d, d$id)
     
 
-    O = foreach(i = 1:length(dl), .packages = 'colorZapper') %dopar% {
+    O = foreach(i = 1:length(dl), .packages = 'colorZapper', .errorhandling = 'pass') %dopar% {
 
         print(i)
         cat(i, ',', sep = '', file = pb, append = TRUE)
 
         pathi = dl[[i]]$path[1]
-        if(!file.exists(pathi)) warning(pathi, 'does not exist.')
 
-        ri = brick (  pathi  ) 
+        ri = raster::brick (  pathi  ) 
         
         wi = lapply(dl[[i]]$wkt,  rgeos::readWKT)
         
@@ -65,7 +65,17 @@ CZextractROI <- function() {
         o[, coverage_fraction := NULL] 
         if(ncol(o) < 4) stop('Only ', ncol(o)-1, ' channels found, expecting 3 (RGB)')
             o
-    }   
+    }
+
+    #check for errors
+    err = sapply(O, FUN = inherits, what = 'simpleError')   
+    if( any(err) ) {
+        err_files = sapply( dl[err], function(x) unique(x$path) ) %>% basename
+        warning("Files failed to process:\n", paste(err_files, sep = '\n') )
+
+        O = O[!err]
+    }
+
 
     O = rbindlist(O, use.names=FALSE)
     setcolorder(O, c('id', setdiff(names(O), 'id') ))
@@ -108,19 +118,28 @@ CZextractALL <- function() {
     dl = split(d, d$id)
     
 
-    O = foreach(i = 1:length(dl), .packages = 'colorZapper') %dopar% {
+    O = foreach(i = 1:length(dl), .packages = 'colorZapper',, .errorhandling = 'pass') %dopar% {
         
         print(i)
         cat(i, ',', sep = '', file = pb, append = TRUE)
 
         pathi = dl[[i]]$path[1]
-        if(!file.exists(pathi)) warning(pathi, 'does not exist.')       
 
-        ri = brick (  pathi ) 
+        ri = raster::brick (  pathi ) 
         o = data.table(ri[])
         o[, path := dl[[i]]$id[1] ]
         o
     }
+
+    #check for errors
+    err = sapply(O, FUN = inherits, what = 'simpleError')   
+    if( any(err) ) {
+        err_files = sapply( dl[err], function(x) unique(x$path) ) %>% basename
+        warning("Files failed to process:\n", paste(err_files, sep = '\n') )
+
+        O = O[!err]
+    }
+
 
     O = rbindlist(O, use.names=FALSE)
 

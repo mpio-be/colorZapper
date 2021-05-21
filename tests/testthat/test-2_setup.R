@@ -1,5 +1,4 @@
 
-require(rgdal)
 
 test_that("Image file info is loaded correctly ", {
     dir = system.file(package = "colorZapper", "sample")

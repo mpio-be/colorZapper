@@ -1,7 +1,7 @@
 
 
 test_that("CZextract* function works", {
-    registerDoParallel(1)
+    registerDoParallel(2)
     CZopen_example()
     expect_true( CZextractROI() )
     expect_true( CZextractALL() )

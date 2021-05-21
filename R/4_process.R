@@ -118,7 +118,7 @@ CZextractALL <- function() {
     dl = split(d, d$id)
     
 
-    O = foreach(i = 1:length(dl), .packages = 'colorZapper',, .errorhandling = 'pass') %dopar% {
+    O = foreach(i = 1:length(dl), .packages = 'colorZapper', .errorhandling = 'pass') %dopar% {
         
         print(i)
         cat(i, ',', sep = '', file = pb, append = TRUE)
